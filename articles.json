@@ -1,0 +1,56 @@
+[
+  {
+    "user": "Tonino",
+    "info": {
+      "endingDate": {
+        "month": 6,
+        "year": 2023,
+        "day": 10
+      },
+      "startingTime": {
+        "hour": 18,
+        "minutes": 0
+      },
+      "name": "Palla da tennis",
+      "endingTime": {
+        "hour": 21,
+        "minutes": 30
+      },
+      "description": "Una comune palla da tennis",
+      "startingPrice": 199.99,
+      "type": 5,
+      "startingDate": {
+        "month": 6,
+        "year": 2023,
+        "day": 10
+      }
+    }
+  },
+  {
+    "user": "Tonino",
+    "info": {
+      "endingDate": {
+        "month": 6,
+        "year": 2023,
+        "day": 15
+      },
+      "startingTime": {
+        "hour": 9,
+        "minutes": 0
+      },
+      "name": "Racchetta",
+      "endingTime": {
+        "hour": 21,
+        "minutes": 0
+      },
+      "description": "Head extreme tour 2021",
+      "startingPrice": 404.02,
+      "type": 5,
+      "startingDate": {
+        "month": 6,
+        "year": 2023,
+        "day": 12
+      }
+    }
+  }
+]

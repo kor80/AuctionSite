@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package auction;
+
+option java_package = "auction.managment";
+option java_multiple_files = true;
+
+import "article_info.proto";
+
+message Article{
+  string user = 1;
+  ArticleInfo info = 2;
+}

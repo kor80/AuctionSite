@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package auction;
+
+option java_package = "auction.managment";
+option java_multiple_files = true;
+
+message Date{
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
+}
+
+message Time{
+  int32 hour = 1;
+  int32 minutes = 2;
+}
+
+enum ArticleType{
+  UNKNOWN = 0;
+  TECH = 1;
+  HOME = 2;
+  BOOKS = 3;
+  GAMES = 4;
+  SPORT = 5;
+}
+
+message ArticleInfo{
+  string name = 1;
+  Date startingDate = 2;
+  Date endingDate = 3;
+  Time startingTime = 4;
+  Time endingTime = 5;
+  double startingPrice = 6;
+  ArticleType type = 7;
+  string description = 8;
+}
+
