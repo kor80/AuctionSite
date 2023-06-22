@@ -32,6 +32,10 @@ public enum ArticleType
    * <code>SPORT = 5;</code>
    */
   SPORT(5),
+  /**
+   * <code>CLOTHING = 6;</code>
+   */
+  CLOTHING(6),
   UNRECOGNIZED(-1),
   ;
 
@@ -59,6 +63,10 @@ public enum ArticleType
    * <code>SPORT = 5;</code>
    */
   public static final int SPORT_VALUE = 5;
+  /**
+   * <code>CLOTHING = 6;</code>
+   */
+  public static final int CLOTHING_VALUE = 6;
 
 
   public final int getNumber() {
@@ -91,6 +99,7 @@ public enum ArticleType
       case 3: return BOOKS;
       case 4: return GAMES;
       case 5: return SPORT;
+      case 6: return CLOTHING;
       default: return null;
     }
   }

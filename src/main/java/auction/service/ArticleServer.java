@@ -1,11 +1,11 @@
 package auction.service;
 
+import auction.managment.MemoryManager;
 import io.grpc.ServerBuilder;
 import io.grpc.Server;
 import io.grpc.protobuf.services.ProtoReflectionService;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class ArticleServer
@@ -36,6 +36,8 @@ public class ArticleServer
                 System.err.println("shut down gRPC server because JVM shuts down");
                 try {
                     ArticleServer.this.stop();
+                    MemoryManager memoryManager = MemoryManager.getInstance();
+                    memoryManager.saveAll();
                 } catch (InterruptedException e) {
                     e.printStackTrace(System.err);
                 }
@@ -46,19 +48,36 @@ public class ArticleServer
 
     public void stop() throws InterruptedException {
         if (server != null) {
-            server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
+            server.shutdown();//.awaitTermination(30, TimeUnit.SECONDS);
         }
     }//stop
 
-    private void blockUntilShutdown() throws InterruptedException {
+    private void blockUntilShutdown() throws InterruptedException{
         if (server != null) {
             server.awaitTermination();
         }
     }//blockUntilShutdown
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws InterruptedException,IOException {
         ArticleServer server = new ArticleServer(8080);
         server.start();
+        (new Stopper(server)).start();
         server.blockUntilShutdown();
     }//main
+
+    private static class Stopper extends Thread{
+        ArticleServer server;
+        public Stopper(ArticleServer server){
+            this.server = server;
+        }
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(30_000);
+                server.stop();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }//run
+    }//Stopper
 }//ArticleServer

@@ -61,14 +61,14 @@ public class ArticleClient
         ArticleClient client = new ArticleClient("0.0.0.0", 8080, "Tonino");
 
         try {
-            ArticleInfo info =  ArticleInfo.newBuilder().setName("Racchetta")
-                    .setStartingDate(Date.newBuilder().setYear(2023).setMonth(6).setDay(12).build())
-                    .setEndingDate(Date.newBuilder().setYear(2023).setMonth(6).setDay(15).build())
-                    .setStartingTime(Time.newBuilder().setHour(9).setMinutes(0).build())
-                    .setEndingTime(Time.newBuilder().setHour(21).setMinutes(0).build())
-                    .setStartingPrice(404.02)
+            ArticleInfo info =  ArticleInfo.newBuilder().setName("Pallina da tennis")
+                    .setStartingDate(Date.newBuilder().setYear(2023).setMonth(6).setDay(24).build())
+                    .setEndingDate(Date.newBuilder().setYear(2023).setMonth(6).setDay(24).build())
+                    .setStartingTime(Time.newBuilder().setHour(6).setMinutes(30).build())
+                    .setEndingTime(Time.newBuilder().setHour(18).setMinutes(30).build())
+                    .setStartingPrice(7548.99)
                     .setType(ArticleType.SPORT)
-                    .setDescription("Head extreme tour 2021")
+                    .setDescription("Pallina da tennis firmata da Giuvann u ciot")
                     .build();
             client.createArticle(info);
         } finally {

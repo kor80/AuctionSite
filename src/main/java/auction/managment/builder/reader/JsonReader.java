@@ -43,11 +43,7 @@ public class JsonReader implements MemoryReader
             articles = (JSONArray) obj;
             reader.close();
             return articles.size();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
@@ -120,6 +116,11 @@ public class JsonReader implements MemoryReader
     }//readStartingPrice
 
     @Override
+    public void readBuyNowPrice(){
+        infoBuilder.setBuyNowPrice( (double) currentInfo.get("buyNowPrice"));
+    }//readBuyNowPrice
+
+    @Override
     public void readType() {
         infoBuilder.setType(ArticleType.forNumber( ((Long) currentInfo.get("type")).intValue() ));
     }//readType
@@ -128,6 +129,11 @@ public class JsonReader implements MemoryReader
     public void readDescription() {
         infoBuilder.setDescription( (String) currentInfo.get("description"));
     }//readDescription
+
+    @Override
+    public void readId(){
+        infoBuilder.setId( ((Long) currentInfo.get("id")).intValue() );
+    }//readId
 
     @Override
     public void closeArticle() {

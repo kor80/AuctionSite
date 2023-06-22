@@ -22,8 +22,10 @@ public class MemoryWriterDirector
         builder.saveStartingTime(info.getStartingTime());
         builder.saveEndingTime(info.getEndingTime());
         builder.saveStartingPrice(info.getStartingPrice());
+        builder.saveBuyNowPrice(info.getBuyNowPrice());
         builder.saveType(info.getType());
         builder.saveDescription(info.getDescription());
+        builder.saveId(info.getId());
         builder.closeMemory();
     }//save
 }//MemoryWriterDirector

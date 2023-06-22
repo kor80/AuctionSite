@@ -48,11 +48,7 @@ public class JsonWriter implements MemoryWriter
             Object obj = parser.parse(fr);
             articlesList = (JSONArray) obj;
             fr.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }//openFile
@@ -113,6 +109,9 @@ public class JsonWriter implements MemoryWriter
     }//saveStartingPrice
 
     @Override
+    public void saveBuyNowPrice( double price ){ info.put("buyNowPrice",price);}//saveBuyNowPrice
+
+    @Override
     public void saveType(ArticleType type) {
         info.put("type",type.getNumber());
     }//saveType
@@ -121,6 +120,9 @@ public class JsonWriter implements MemoryWriter
     public void saveDescription(String description) {
         info.put("description",description);
     }//saveDescription
+
+    @Override
+    public void saveId(int id){ info.put("id",id); }//saveId
 
     @Override
     public void closeMemory() {

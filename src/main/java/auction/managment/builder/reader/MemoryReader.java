@@ -16,8 +16,10 @@ public interface MemoryReader
     void readStartingTime();
     void readEndingTime();
     void readStartingPrice();
+    void readBuyNowPrice();
     void readType();
     void readDescription();
+    void readId();
     void closeArticle();
     Collection<Article> getArticles();
 }//MemoryReader

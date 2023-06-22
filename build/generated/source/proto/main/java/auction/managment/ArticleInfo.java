@@ -195,17 +195,28 @@ private static final long serialVersionUID = 0L;
     return startingPrice_;
   }
 
-  public static final int TYPE_FIELD_NUMBER = 7;
+  public static final int BUYNOWPRICE_FIELD_NUMBER = 7;
+  private double buyNowPrice_ = 0D;
+  /**
+   * <code>double buyNowPrice = 7;</code>
+   * @return The buyNowPrice.
+   */
+  @java.lang.Override
+  public double getBuyNowPrice() {
+    return buyNowPrice_;
+  }
+
+  public static final int TYPE_FIELD_NUMBER = 8;
   private int type_ = 0;
   /**
-   * <code>.auction.ArticleType type = 7;</code>
+   * <code>.auction.ArticleType type = 8;</code>
    * @return The enum numeric value on the wire for type.
    */
   @java.lang.Override public int getTypeValue() {
     return type_;
   }
   /**
-   * <code>.auction.ArticleType type = 7;</code>
+   * <code>.auction.ArticleType type = 8;</code>
    * @return The type.
    */
   @java.lang.Override public auction.managment.ArticleType getType() {
@@ -213,11 +224,11 @@ private static final long serialVersionUID = 0L;
     return result == null ? auction.managment.ArticleType.UNRECOGNIZED : result;
   }
 
-  public static final int DESCRIPTION_FIELD_NUMBER = 8;
+  public static final int DESCRIPTION_FIELD_NUMBER = 9;
   @SuppressWarnings("serial")
   private volatile java.lang.Object description_ = "";
   /**
-   * <code>string description = 8;</code>
+   * <code>string description = 9;</code>
    * @return The description.
    */
   @java.lang.Override
@@ -234,7 +245,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string description = 8;</code>
+   * <code>string description = 9;</code>
    * @return The bytes for description.
    */
   @java.lang.Override
@@ -250,6 +261,17 @@ private static final long serialVersionUID = 0L;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
+  }
+
+  public static final int ID_FIELD_NUMBER = 10;
+  private int id_ = 0;
+  /**
+   * <code>int32 id = 10;</code>
+   * @return The id.
+   */
+  @java.lang.Override
+  public int getId() {
+    return id_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -284,11 +306,17 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Double.doubleToRawLongBits(startingPrice_) != 0) {
       output.writeDouble(6, startingPrice_);
     }
+    if (java.lang.Double.doubleToRawLongBits(buyNowPrice_) != 0) {
+      output.writeDouble(7, buyNowPrice_);
+    }
     if (type_ != auction.managment.ArticleType.UNKNOWN.getNumber()) {
-      output.writeEnum(7, type_);
+      output.writeEnum(8, type_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, description_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, description_);
+    }
+    if (id_ != 0) {
+      output.writeInt32(10, id_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -322,12 +350,20 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeDoubleSize(6, startingPrice_);
     }
+    if (java.lang.Double.doubleToRawLongBits(buyNowPrice_) != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeDoubleSize(7, buyNowPrice_);
+    }
     if (type_ != auction.managment.ArticleType.UNKNOWN.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(7, type_);
+        .computeEnumSize(8, type_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(description_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, description_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, description_);
+    }
+    if (id_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(10, id_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -369,9 +405,14 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Double.doubleToLongBits(getStartingPrice())
         != java.lang.Double.doubleToLongBits(
             other.getStartingPrice())) return false;
+    if (java.lang.Double.doubleToLongBits(getBuyNowPrice())
+        != java.lang.Double.doubleToLongBits(
+            other.getBuyNowPrice())) return false;
     if (type_ != other.type_) return false;
     if (!getDescription()
         .equals(other.getDescription())) return false;
+    if (getId()
+        != other.getId()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -404,10 +445,15 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + STARTINGPRICE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         java.lang.Double.doubleToLongBits(getStartingPrice()));
+    hash = (37 * hash) + BUYNOWPRICE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getBuyNowPrice()));
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
     hash = (53 * hash) + type_;
     hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
     hash = (53 * hash) + getDescription().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + getId();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -561,8 +607,10 @@ private static final long serialVersionUID = 0L;
         endingTimeBuilder_ = null;
       }
       startingPrice_ = 0D;
+      buyNowPrice_ = 0D;
       type_ = 0;
       description_ = "";
+      id_ = 0;
       return this;
     }
 
@@ -623,10 +671,16 @@ private static final long serialVersionUID = 0L;
         result.startingPrice_ = startingPrice_;
       }
       if (((from_bitField0_ & 0x00000040) != 0)) {
-        result.type_ = type_;
+        result.buyNowPrice_ = buyNowPrice_;
       }
       if (((from_bitField0_ & 0x00000080) != 0)) {
+        result.type_ = type_;
+      }
+      if (((from_bitField0_ & 0x00000100) != 0)) {
         result.description_ = description_;
+      }
+      if (((from_bitField0_ & 0x00000200) != 0)) {
+        result.id_ = id_;
       }
     }
 
@@ -694,13 +748,19 @@ private static final long serialVersionUID = 0L;
       if (other.getStartingPrice() != 0D) {
         setStartingPrice(other.getStartingPrice());
       }
+      if (other.getBuyNowPrice() != 0D) {
+        setBuyNowPrice(other.getBuyNowPrice());
+      }
       if (other.type_ != 0) {
         setTypeValue(other.getTypeValue());
       }
       if (!other.getDescription().isEmpty()) {
         description_ = other.description_;
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         onChanged();
+      }
+      if (other.getId() != 0) {
+        setId(other.getId());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -766,16 +826,26 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000020;
               break;
             } // case 49
-            case 56: {
-              type_ = input.readEnum();
+            case 57: {
+              buyNowPrice_ = input.readDouble();
               bitField0_ |= 0x00000040;
               break;
-            } // case 56
-            case 66: {
-              description_ = input.readStringRequireUtf8();
+            } // case 57
+            case 64: {
+              type_ = input.readEnum();
               bitField0_ |= 0x00000080;
               break;
-            } // case 66
+            } // case 64
+            case 74: {
+              description_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000100;
+              break;
+            } // case 74
+            case 80: {
+              id_ = input.readInt32();
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 80
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1373,27 +1443,59 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private double buyNowPrice_ ;
+    /**
+     * <code>double buyNowPrice = 7;</code>
+     * @return The buyNowPrice.
+     */
+    @java.lang.Override
+    public double getBuyNowPrice() {
+      return buyNowPrice_;
+    }
+    /**
+     * <code>double buyNowPrice = 7;</code>
+     * @param value The buyNowPrice to set.
+     * @return This builder for chaining.
+     */
+    public Builder setBuyNowPrice(double value) {
+
+      buyNowPrice_ = value;
+      bitField0_ |= 0x00000040;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>double buyNowPrice = 7;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearBuyNowPrice() {
+      bitField0_ = (bitField0_ & ~0x00000040);
+      buyNowPrice_ = 0D;
+      onChanged();
+      return this;
+    }
+
     private int type_ = 0;
     /**
-     * <code>.auction.ArticleType type = 7;</code>
+     * <code>.auction.ArticleType type = 8;</code>
      * @return The enum numeric value on the wire for type.
      */
     @java.lang.Override public int getTypeValue() {
       return type_;
     }
     /**
-     * <code>.auction.ArticleType type = 7;</code>
+     * <code>.auction.ArticleType type = 8;</code>
      * @param value The enum numeric value on the wire for type to set.
      * @return This builder for chaining.
      */
     public Builder setTypeValue(int value) {
       type_ = value;
-      bitField0_ |= 0x00000040;
+      bitField0_ |= 0x00000080;
       onChanged();
       return this;
     }
     /**
-     * <code>.auction.ArticleType type = 7;</code>
+     * <code>.auction.ArticleType type = 8;</code>
      * @return The type.
      */
     @java.lang.Override
@@ -1402,7 +1504,7 @@ private static final long serialVersionUID = 0L;
       return result == null ? auction.managment.ArticleType.UNRECOGNIZED : result;
     }
     /**
-     * <code>.auction.ArticleType type = 7;</code>
+     * <code>.auction.ArticleType type = 8;</code>
      * @param value The type to set.
      * @return This builder for chaining.
      */
@@ -1410,17 +1512,17 @@ private static final long serialVersionUID = 0L;
       if (value == null) {
         throw new NullPointerException();
       }
-      bitField0_ |= 0x00000040;
+      bitField0_ |= 0x00000080;
       type_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>.auction.ArticleType type = 7;</code>
+     * <code>.auction.ArticleType type = 8;</code>
      * @return This builder for chaining.
      */
     public Builder clearType() {
-      bitField0_ = (bitField0_ & ~0x00000040);
+      bitField0_ = (bitField0_ & ~0x00000080);
       type_ = 0;
       onChanged();
       return this;
@@ -1428,7 +1530,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object description_ = "";
     /**
-     * <code>string description = 8;</code>
+     * <code>string description = 9;</code>
      * @return The description.
      */
     public java.lang.String getDescription() {
@@ -1444,7 +1546,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string description = 8;</code>
+     * <code>string description = 9;</code>
      * @return The bytes for description.
      */
     public com.google.protobuf.ByteString
@@ -1461,7 +1563,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string description = 8;</code>
+     * <code>string description = 9;</code>
      * @param value The description to set.
      * @return This builder for chaining.
      */
@@ -1469,22 +1571,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       description_ = value;
-      bitField0_ |= 0x00000080;
+      bitField0_ |= 0x00000100;
       onChanged();
       return this;
     }
     /**
-     * <code>string description = 8;</code>
+     * <code>string description = 9;</code>
      * @return This builder for chaining.
      */
     public Builder clearDescription() {
       description_ = getDefaultInstance().getDescription();
-      bitField0_ = (bitField0_ & ~0x00000080);
+      bitField0_ = (bitField0_ & ~0x00000100);
       onChanged();
       return this;
     }
     /**
-     * <code>string description = 8;</code>
+     * <code>string description = 9;</code>
      * @param value The bytes for description to set.
      * @return This builder for chaining.
      */
@@ -1493,7 +1595,39 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       description_ = value;
-      bitField0_ |= 0x00000080;
+      bitField0_ |= 0x00000100;
+      onChanged();
+      return this;
+    }
+
+    private int id_ ;
+    /**
+     * <code>int32 id = 10;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public int getId() {
+      return id_;
+    }
+    /**
+     * <code>int32 id = 10;</code>
+     * @param value The id to set.
+     * @return This builder for chaining.
+     */
+    public Builder setId(int value) {
+
+      id_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 id = 10;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearId() {
+      bitField0_ = (bitField0_ & ~0x00000200);
+      id_ = 0;
       onChanged();
       return this;
     }

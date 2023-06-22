@@ -24,8 +24,10 @@ public class MemoryReaderDirector
             builder.readStartingTime();
             builder.readEndingTime();
             builder.readStartingPrice();
+            builder.readBuyNowPrice();
             builder.readType();
             builder.readDescription();
+            builder.readId();
             builder.closeArticle();
         }
         return builder.getArticles();

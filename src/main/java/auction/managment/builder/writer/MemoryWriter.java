@@ -15,7 +15,9 @@ public interface MemoryWriter
     void saveStartingTime(Time time);
     void saveEndingTime(Time time);
     void saveStartingPrice(double price);
+    void saveBuyNowPrice(double price);
     void saveType(ArticleType type);
     void saveDescription(String description);
+    void saveId(int id);
     void closeMemory();
 }

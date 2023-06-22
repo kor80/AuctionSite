@@ -86,25 +86,37 @@ public interface ArticleInfoOrBuilder extends
   double getStartingPrice();
 
   /**
-   * <code>.auction.ArticleType type = 7;</code>
+   * <code>double buyNowPrice = 7;</code>
+   * @return The buyNowPrice.
+   */
+  double getBuyNowPrice();
+
+  /**
+   * <code>.auction.ArticleType type = 8;</code>
    * @return The enum numeric value on the wire for type.
    */
   int getTypeValue();
   /**
-   * <code>.auction.ArticleType type = 7;</code>
+   * <code>.auction.ArticleType type = 8;</code>
    * @return The type.
    */
   auction.managment.ArticleType getType();
 
   /**
-   * <code>string description = 8;</code>
+   * <code>string description = 9;</code>
    * @return The description.
    */
   java.lang.String getDescription();
   /**
-   * <code>string description = 8;</code>
+   * <code>string description = 9;</code>
    * @return The bytes for description.
    */
   com.google.protobuf.ByteString
       getDescriptionBytes();
+
+  /**
+   * <code>int32 id = 10;</code>
+   * @return The id.
+   */
+  int getId();
 }

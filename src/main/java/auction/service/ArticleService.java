@@ -36,7 +36,8 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
         }
 
         try{
-            memoryManager.saveArticle(user, info);
+            memoryManager.userLoadArticle(user,info);
+            //memoryManager.saveArticle(user, info);
         }
         catch( Exception e ){
             responseObserver.onError(
