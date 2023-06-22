@@ -73,6 +73,37 @@ public final class ArticleServiceGrpc {
     return getCreateArticleMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<auction.managment.SearchArticleRequest,
+      auction.managment.SearchArticleResponse> getSearchArticleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SearchArticle",
+      requestType = auction.managment.SearchArticleRequest.class,
+      responseType = auction.managment.SearchArticleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.managment.SearchArticleRequest,
+      auction.managment.SearchArticleResponse> getSearchArticleMethod() {
+    io.grpc.MethodDescriptor<auction.managment.SearchArticleRequest, auction.managment.SearchArticleResponse> getSearchArticleMethod;
+    if ((getSearchArticleMethod = ArticleServiceGrpc.getSearchArticleMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getSearchArticleMethod = ArticleServiceGrpc.getSearchArticleMethod) == null) {
+          ArticleServiceGrpc.getSearchArticleMethod = getSearchArticleMethod =
+              io.grpc.MethodDescriptor.<auction.managment.SearchArticleRequest, auction.managment.SearchArticleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SearchArticle"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.SearchArticleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.SearchArticleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("SearchArticle"))
+              .build();
+        }
+      }
+    }
+    return getSearchArticleMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -153,6 +184,13 @@ public final class ArticleServiceGrpc {
     default void createArticle(auction.managment.CreateArticleRequest request,
         io.grpc.stub.StreamObserver<auction.managment.CreateArticleResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateArticleMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void searchArticle(auction.managment.SearchArticleRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.SearchArticleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSearchArticleMethod(), responseObserver);
     }
   }
 
@@ -244,6 +282,14 @@ public final class ArticleServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getCreateArticleMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void searchArticle(auction.managment.SearchArticleRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.SearchArticleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSearchArticleMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -294,6 +340,13 @@ public final class ArticleServiceGrpc {
     public auction.managment.CreateArticleResponse createArticle(auction.managment.CreateArticleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getCreateArticleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public auction.managment.SearchArticleResponse searchArticle(auction.managment.SearchArticleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSearchArticleMethod(), getCallOptions(), request);
     }
   }
 
@@ -347,9 +400,18 @@ public final class ArticleServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getCreateArticleMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.managment.SearchArticleResponse> searchArticle(
+        auction.managment.SearchArticleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSearchArticleMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ARTICLE = 0;
+  private static final int METHODID_SEARCH_ARTICLE = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -371,6 +433,10 @@ public final class ArticleServiceGrpc {
         case METHODID_CREATE_ARTICLE:
           serviceImpl.createArticle((auction.managment.CreateArticleRequest) request,
               (io.grpc.stub.StreamObserver<auction.managment.CreateArticleResponse>) responseObserver);
+          break;
+        case METHODID_SEARCH_ARTICLE:
+          serviceImpl.searchArticle((auction.managment.SearchArticleRequest) request,
+              (io.grpc.stub.StreamObserver<auction.managment.SearchArticleResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -397,6 +463,13 @@ public final class ArticleServiceGrpc {
               auction.managment.CreateArticleRequest,
               auction.managment.CreateArticleResponse>(
                 service, METHODID_CREATE_ARTICLE)))
+        .addMethod(
+          getSearchArticleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.managment.SearchArticleRequest,
+              auction.managment.SearchArticleResponse>(
+                service, METHODID_SEARCH_ARTICLE)))
         .build();
   }
 
@@ -446,6 +519,7 @@ public final class ArticleServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ArticleServiceFileDescriptorSupplier())
               .addMethod(getCreateArticleMethod())
+              .addMethod(getSearchArticleMethod())
               .build();
         }
       }

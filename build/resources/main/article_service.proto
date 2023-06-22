@@ -6,6 +6,7 @@ option java_package = "auction.managment";
 option java_multiple_files = true;
 
 import "article_info.proto";
+import "search_info.proto";
 
 enum State{
   SUCCESS = 0;
@@ -15,6 +16,10 @@ enum State{
 message CreateArticleRequest { string user = 1; ArticleInfo info = 2; }
 
 message CreateArticleResponse { State state = 1; }
+
+message SearchArticleRequest { SearchInfo info = 1; }
+
+message SearchArticleResponse{ repeated ArticleInfo info = 1; }
 
 /*
 message SearchLaptopRequest { Filter filter = 1; }
@@ -51,6 +56,8 @@ message RateLaptopResponse {
 */
 service ArticleService {
   rpc CreateArticle(CreateArticleRequest) returns (CreateArticleResponse) {};
+
+  rpc SearchArticle(SearchArticleRequest) returns (SearchArticleResponse) {};
   /*
   rpc SearchLaptop(SearchLaptopRequest) returns (stream SearchLaptopResponse) {
   };

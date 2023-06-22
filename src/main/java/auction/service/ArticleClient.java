@@ -1,6 +1,7 @@
 package auction.service;
 
 import auction.managment.*;
+import auction.search.SearchInfo;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Status;
@@ -40,15 +41,6 @@ public class ArticleClient
 
         try{
             response = blockingStub.withDeadlineAfter(5, TimeUnit.SECONDS).createArticle(request);
-        }
-        catch (StatusRuntimeException e) {
-            if (e.getStatus().getCode() == Status.Code.ALREADY_EXISTS) {
-                // not a big deal
-                logger.info("laptop ID already exists");
-                return;
-            }
-            logger.log(Level.SEVERE, "request failed: " + e.getMessage());
-            return;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "request failed: " + e.getMessage());
             return;
@@ -57,20 +49,50 @@ public class ArticleClient
         logger.info("Article created with state: " + response.getState());
     }//createArticle
 
+    public void searchArticle(SearchInfo info){
+        SearchArticleRequest request = SearchArticleRequest.newBuilder().setInfo(info).build();
+        SearchArticleResponse response = SearchArticleResponse.getDefaultInstance();
+
+        try{
+            response = blockingStub.withDeadlineAfter(5, TimeUnit.SECONDS).searchArticle(request);
+        }catch (Exception e) {
+            logger.log(Level.SEVERE, "request failed: " + e.getMessage());
+            return;
+        }
+
+        for( ArticleInfo i : response.getInfoList() )
+            printArticleInfo(i);
+    }//searchArticle
+
+    private void printArticleInfo( ArticleInfo info ){
+        StringBuilder sb = new StringBuilder();
+        sb.append(info.getEndingDate().getYear());
+        sb.append("/");
+        sb.append(info.getEndingDate().getMonth());
+        sb.append("/");
+        sb.append(info.getEndingDate().getDay());
+        String date = sb.toString();
+        System.out.format("Article with id %d:\n" +
+                        "Name: %s\nEnding date: %s\nType: %s\nDescription: %s\n\n",
+                info.getId(), info.getName(), date, info.getType(), info.getDescription());
+    }
+
     public static void main(String[] args) throws InterruptedException{
         ArticleClient client = new ArticleClient("0.0.0.0", 8080, "Tonino");
 
         try {
-            ArticleInfo info =  ArticleInfo.newBuilder().setName("Pallina da tennis")
-                    .setStartingDate(Date.newBuilder().setYear(2023).setMonth(6).setDay(24).build())
-                    .setEndingDate(Date.newBuilder().setYear(2023).setMonth(6).setDay(24).build())
-                    .setStartingTime(Time.newBuilder().setHour(6).setMinutes(30).build())
-                    .setEndingTime(Time.newBuilder().setHour(18).setMinutes(30).build())
-                    .setStartingPrice(7548.99)
-                    .setType(ArticleType.SPORT)
-                    .setDescription("Pallina da tennis firmata da Giuvann u ciot")
-                    .build();
+            /*
+            Date sDate = Date.newBuilder().setYear(2023).setMonth(5).setDay(11).build();
+            Date eDate = Date.newBuilder().setYear(2023).setMonth(5).setDay(12).build();
+            Time sTime = Time.newBuilder().setHour(8).setMinutes(20).build();
+            Time eTime = Time.newBuilder().setHour(12).setMinutes(0).build();
+            ArticleInfo info = ArticleInfo.newBuilder().setName("Prova").setStartingDate(sDate).setEndingDate(eDate).setStartingTime(sTime).setEndingTime(eTime)
+                            .setStartingPrice(1.50).setBuyNowPrice(1.0).setType(ArticleType.BOOKS).setDescription("Test description").build();
             client.createArticle(info);
+            */
+
+            SearchInfo info = SearchInfo.newBuilder().setName("pallina").setMaxPrice(10000).build();
+            client.searchArticle(info);
         } finally {
             client.shutdown();
         }

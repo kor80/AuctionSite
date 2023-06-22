@@ -4,6 +4,7 @@ import auction.managment.implementation.JsonFactory;
 import auction.managment.implementation.MemoryImplFactory;
 import auction.managment.implementation.MemoryImplementation;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -129,4 +130,16 @@ public class MemoryManager
                         "Name: %s\nStarting date: %s\nType: %s\nDescription: %s\n\n",
                 user, info.getName(), date, info.getType(), info.getDescription());
     }//printArticle
+
+    public LinkedList<ArticleInfo> getArticles(){
+        LinkedList<ArticleInfo> ret = new LinkedList<>();
+
+        for( Map.Entry<String,LinkedList<ArticleInfo>> entry : articles.entrySet() )
+            ret.addAll(entry.getValue());
+
+        for( Map.Entry<String,LinkedList<ArticleInfo>> entry : newArticles.entrySet() )
+            ret.addAll(entry.getValue());
+
+        return ret;
+    }//getArticles
 }

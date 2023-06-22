@@ -61,7 +61,7 @@ public class ArticleServer
     public static void main(String[] args) throws InterruptedException,IOException {
         ArticleServer server = new ArticleServer(8080);
         server.start();
-        (new Stopper(server)).start();
+        //(new Stopper(server)).start();
         server.blockUntilShutdown();
     }//main
 
