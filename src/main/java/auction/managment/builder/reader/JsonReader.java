@@ -7,7 +7,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
@@ -46,7 +45,6 @@ public class JsonReader implements MemoryReader
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-
         return 0;
     }//openMemory
 

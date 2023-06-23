@@ -143,8 +143,8 @@ public class ArticleClient
             //client.createArticle(createArticleTest());
             //client.searchArticle(searchArticleTest());
             //client.getOwnedAuctions();
-            client.registerToTheAuction(2);
-            client.getUserActiveAuctions();
+            client.registerToTheAuction(0);
+            //client.getUserActiveAuctions();
         } finally {
             client.shutdown();
         }

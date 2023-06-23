@@ -1,10 +1,12 @@
 package auction.managment;
 
+import auction.managment.auctions.Registration;
 import auction.managment.implementation.JsonFactory;
 import auction.managment.implementation.MemoryImplFactory;
 import auction.managment.implementation.MemoryImplementation;
 
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -54,13 +56,17 @@ public class MemoryManager
      * Loads articles in main memory, supporting articles persistence
      */
     private void loadArticles(){
-        LinkedList<Article> articles = new LinkedList<>(memoryImpl.loadAll());
+        LinkedList<Article> articles = new LinkedList<>(memoryImpl.loadAllArticles());
 
         for (Article article : articles){
             String user = article.getUser();
             loadArticle(user,article.getInfo());
         }
     }//loadArticles
+
+    public Collection<Registration> loadRegisteredAuctions(){
+        return memoryImpl.loadAllRegistrations();
+    }//loadRegisteredAuctions
 
     /**
      * Puts the article loaded by user {@user user} with {@info info}
@@ -110,17 +116,23 @@ public class MemoryManager
      * @param  info the informations of the article
      * @see         MemoryImplFactory
      */
-    public synchronized void saveArticle(String user, ArticleInfo info){
-        memoryImpl.save(Article.newBuilder().setUser(user).setInfo(info).build());
+    private synchronized void saveArticle(String user, ArticleInfo info){
+        memoryImpl.saveArticle(Article.newBuilder().setUser(user).setInfo(info).build());
         System.out.println("Salvato in memoria secondaria l'articolo: ");
         printArticle(user,info);
     }//saveArticle
+
+    //TODO doc
+    public synchronized void saveRegistrations(Registration registrations){
+        memoryImpl.saveRegistrations(registrations);
+        System.out.println("Salvata in memoria secondaria la registrazione seguente:\n"+registrations);
+    }//saveRegistrations
 
     /**
      * Saves all the new articles(articles loaded in the current server session)
      * inside the database chosen by current factory.
      */
-    public void saveAll(){
+    public void saveAllArticles(){
         for( Map.Entry<String, LinkedList<Integer>> user : userNewArticles.entrySet() ){
             for( Integer id : user.getValue() )
                 saveArticle(user.getKey(), newArticles.get(id) );

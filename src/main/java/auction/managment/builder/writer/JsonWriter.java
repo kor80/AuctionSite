@@ -13,8 +13,8 @@ import java.io.*;
 public class JsonWriter implements MemoryWriter
 {
     private JSONParser parser;
-    private JSONArray articlesList;
-    private JSONObject jArticle;
+    private JSONArray rootObjectsList;
+    private JSONObject rootObject;
     private JSONObject info;
 
     private final String path;
@@ -23,7 +23,7 @@ public class JsonWriter implements MemoryWriter
 
     @Override
     public void openMemory() {
-        jArticle = new JSONObject();
+        rootObject = new JSONObject();
         File json = new File(path);
         if( !json.exists() ) createFile(path);
         else openFile(path);
@@ -32,8 +32,8 @@ public class JsonWriter implements MemoryWriter
     private void createFile(String path){
         try {
             FileWriter fw = new FileWriter(path);
-            articlesList = new JSONArray();
-            fw.write(articlesList.toJSONString());
+            rootObjectsList = new JSONArray();
+            fw.write(rootObjectsList.toJSONString());
             fw.flush();
             fw.close();
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class JsonWriter implements MemoryWriter
             FileReader fr = new FileReader(path);
             parser = new JSONParser();
             Object obj = parser.parse(fr);
-            articlesList = (JSONArray) obj;
+            rootObjectsList = (JSONArray) obj;
             fr.close();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -55,13 +55,13 @@ public class JsonWriter implements MemoryWriter
 
     @Override
     public void saveUser(String user) {
-        jArticle.put("user",user);
+        rootObject.put("user",user);
     }//saveUser
 
     @Override
     public void addInfo() {
         info = new JSONObject();
-        jArticle.put("info",info);
+        rootObject.put("info",info);
     }//addInfo
 
     @Override
@@ -122,14 +122,19 @@ public class JsonWriter implements MemoryWriter
     }//saveDescription
 
     @Override
-    public void saveId(int id){ info.put("id",id); }//saveId
+    public void saveArticleId(int id){ info.put("id",id); }//saveId
+
+    @Override
+    public void saveRegistrationId(int id){
+        rootObject.put("id",id);
+    }//saveRegistrationId
 
     @Override
     public void closeMemory() {
-        articlesList.add(jArticle);
+        rootObjectsList.add(rootObject);
         try {
             FileWriter fw = new FileWriter(path);
-            fw.write(articlesList.toJSONString());
+            fw.write(rootObjectsList.toJSONString());
             fw.flush();
             fw.close();
         } catch (IOException e) {

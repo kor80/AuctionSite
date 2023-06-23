@@ -37,7 +37,7 @@ public class ArticleServer
                 try {
                     ArticleServer.this.stop();
                     MemoryManager memoryManager = MemoryManager.getInstance();
-                    memoryManager.saveAll();
+                    memoryManager.saveAllArticles();
                 } catch (InterruptedException e) {
                     e.printStackTrace(System.err);
                 }

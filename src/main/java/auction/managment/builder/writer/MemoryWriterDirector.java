@@ -25,7 +25,7 @@ public class MemoryWriterDirector
         builder.saveBuyNowPrice(info.getBuyNowPrice());
         builder.saveType(info.getType());
         builder.saveDescription(info.getDescription());
-        builder.saveId(info.getId());
+        builder.saveArticleId(info.getId());
         builder.closeMemory();
     }//save
 }//MemoryWriterDirector

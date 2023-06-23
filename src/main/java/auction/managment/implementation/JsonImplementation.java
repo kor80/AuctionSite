@@ -1,38 +1,61 @@
 package auction.managment.implementation;
 
 import auction.managment.Article;
-import auction.managment.builder.reader.JsonReader;
-import auction.managment.builder.reader.MemoryReaderDirector;
+import auction.managment.auctions.Registration;
+import auction.managment.builder.reader.*;
 import auction.managment.builder.writer.JsonWriter;
+import auction.managment.builder.writer.MemoryWriter;
 import auction.managment.builder.writer.MemoryWriterDirector;
+import auction.managment.builder.writer.RegistrationsWriterDirector;
 
 import java.util.Collection;
 
 public class JsonImplementation implements MemoryImplementation
 {
-    private final String path = "articles.json";
+    private final String articlesPath = "articles.json";
+    private final String registrationsPath = "registrations.json";
 
-    private JsonReader readerBuilder;
-    private MemoryReaderDirector readerDirector;
+    private MemoryReader readerBuilder;
+    private RegistrationReader registrationReaderBuilder;
+    private MemoryReaderDirector articlesReaderDirector;
+    private RegistrationReaderDirector registrationReaderDirector;
 
-    private JsonWriter writerBuilder;
-    private MemoryWriterDirector writerDirector;
+    private MemoryWriter articlesWriterBuilder;
+    private MemoryWriter registrationsWriterBuilder;
+    private MemoryWriterDirector articlesWriterDirector;
+    private RegistrationsWriterDirector registrationsWriterDirector;
 
     public JsonImplementation(){
-        readerBuilder = new JsonReader(path);
-        readerDirector = new MemoryReaderDirector(readerBuilder);
+        readerBuilder = new JsonReader(articlesPath);
+        registrationReaderBuilder = new JsonRegistrationReader(registrationsPath);
+        articlesReaderDirector = new MemoryReaderDirector(readerBuilder);
+        registrationReaderDirector = new RegistrationReaderDirector(registrationReaderBuilder);
 
-        writerBuilder = new JsonWriter(path);
-        writerDirector = new MemoryWriterDirector(writerBuilder);
+        articlesWriterBuilder = new JsonWriter(articlesPath);
+        registrationsWriterBuilder = new JsonWriter(registrationsPath);
+        articlesWriterDirector = new MemoryWriterDirector(articlesWriterBuilder);
+        registrationsWriterDirector = new RegistrationsWriterDirector(registrationsWriterBuilder);
     }
 
     @Override
-    public void save(Article article) {
-        writerDirector.save(article);
-    }//save
+    public void saveArticle(Article article) {
+        articlesWriterDirector.save(article);
+    }//saveArticle
 
     @Override
-    public Collection<Article> loadAll() {
-        return readerDirector.buildMemory();
-    }
+    public void saveRegistrations(Registration registrations) {
+        registrationsWriterDirector.save(registrations);
+    }//saveRegistrations
+
+    @Override
+    public Collection<Article> loadAllArticles() {
+        return articlesReaderDirector.buildMemory();
+    }//loadAllArticles
+
+    @Override
+    public Collection<Registration> loadAllRegistrations() {
+        return registrationReaderDirector.buildMemory();
+    }//loadAllRegistrations
+
+
 }
