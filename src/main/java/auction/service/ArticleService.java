@@ -1,6 +1,8 @@
 package auction.service;
 
 import auction.managment.*;
+import auction.managment.auctions.AuctionsManager;
+import auction.managment.view.ClientRequestsHandler;
 import auction.search.SearchManager;
 import auction.search.decorator.SimpleSearcher;
 import io.grpc.Context;
@@ -15,11 +17,15 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
 
     private final MemoryManager memoryManager;
     private final SearchManager searchManager;
+    private final ClientRequestsHandler clientRequestsHandler;
+    private final AuctionsManager auctionsManager;
 
     public ArticleService(){
         //TODO set memory manager factoru
         memoryManager = MemoryManager.getInstance();
         searchManager = SearchManager.getInstance();
+        clientRequestsHandler = ClientRequestsHandler.getInstance();
+        auctionsManager = AuctionsManager.getInstance();
     }
 
     @Override
@@ -78,6 +84,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
             SearchArticleResponse response = SearchArticleResponse.newBuilder().addAllInfo(searchManager.search(request.getInfo())).build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
+            logger.info("Articles found");
         }
         catch( Exception e ){
             responseObserver.onError(
@@ -87,7 +94,106 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
             );
             return;
         }
-        logger.info("Articles found");
     }//searchArticle
+
+    @Override
+    public void getOwnedAuctions(GetOwnedAuctionRequest request, StreamObserver<GetOwnedAuctionResponse> responseObserver){
+        String user = request.getUser();
+
+        logger.info("got a get-owned-auctions request from user: "+user);
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            GetOwnedAuctionResponse response = GetOwnedAuctionResponse.newBuilder()
+                    .addAllInfo(clientRequestsHandler.getOwnedAuctions(user)).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("Owned Auction returned");
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//getOwnedAuctions
+
+    @Override
+    public void registerForTheAuction(RegisterForTheAuctionRequest request, StreamObserver<RegisterForTheAuctionResponse> responseObserver){
+        String user = request.getUser();
+        int id = request.getAuctionId();
+
+        logger.info("got a register-for-the-auction "+id+" request from user: "+user);
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            RegisterForTheAuctionResponse response = RegisterForTheAuctionResponse.newBuilder()
+                    .setUpshot(auctionsManager.registerAuction(user,id)).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("User "+user+" successfully registered to auction "+id);
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//registerForTheAuction
+
+    @Override
+    public void getUserActiveAuctions(GetUserActiveAuctionsRequest request, StreamObserver<GetUserActiveAuctionsResponse> responseObserver){
+        String user = request.getUser();
+
+        logger.info("got a get-active-auction-request from user: "+user);
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            GetUserActiveAuctionsResponse response = GetUserActiveAuctionsResponse.newBuilder()
+                    .addAllInfo(auctionsManager.getUserActiveAuctions(user)).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("User "+user+" gets all his active auctions");
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//getUserActiveAuctions
 
 }//ArticleService

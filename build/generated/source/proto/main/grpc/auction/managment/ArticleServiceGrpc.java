@@ -104,6 +104,99 @@ public final class ArticleServiceGrpc {
     return getSearchArticleMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<auction.managment.GetOwnedAuctionRequest,
+      auction.managment.GetOwnedAuctionResponse> getGetOwnedAuctionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetOwnedAuctions",
+      requestType = auction.managment.GetOwnedAuctionRequest.class,
+      responseType = auction.managment.GetOwnedAuctionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.managment.GetOwnedAuctionRequest,
+      auction.managment.GetOwnedAuctionResponse> getGetOwnedAuctionsMethod() {
+    io.grpc.MethodDescriptor<auction.managment.GetOwnedAuctionRequest, auction.managment.GetOwnedAuctionResponse> getGetOwnedAuctionsMethod;
+    if ((getGetOwnedAuctionsMethod = ArticleServiceGrpc.getGetOwnedAuctionsMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getGetOwnedAuctionsMethod = ArticleServiceGrpc.getGetOwnedAuctionsMethod) == null) {
+          ArticleServiceGrpc.getGetOwnedAuctionsMethod = getGetOwnedAuctionsMethod =
+              io.grpc.MethodDescriptor.<auction.managment.GetOwnedAuctionRequest, auction.managment.GetOwnedAuctionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetOwnedAuctions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.GetOwnedAuctionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.GetOwnedAuctionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("GetOwnedAuctions"))
+              .build();
+        }
+      }
+    }
+    return getGetOwnedAuctionsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<auction.managment.RegisterForTheAuctionRequest,
+      auction.managment.RegisterForTheAuctionResponse> getRegisterForTheAuctionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RegisterForTheAuction",
+      requestType = auction.managment.RegisterForTheAuctionRequest.class,
+      responseType = auction.managment.RegisterForTheAuctionResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.managment.RegisterForTheAuctionRequest,
+      auction.managment.RegisterForTheAuctionResponse> getRegisterForTheAuctionMethod() {
+    io.grpc.MethodDescriptor<auction.managment.RegisterForTheAuctionRequest, auction.managment.RegisterForTheAuctionResponse> getRegisterForTheAuctionMethod;
+    if ((getRegisterForTheAuctionMethod = ArticleServiceGrpc.getRegisterForTheAuctionMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getRegisterForTheAuctionMethod = ArticleServiceGrpc.getRegisterForTheAuctionMethod) == null) {
+          ArticleServiceGrpc.getRegisterForTheAuctionMethod = getRegisterForTheAuctionMethod =
+              io.grpc.MethodDescriptor.<auction.managment.RegisterForTheAuctionRequest, auction.managment.RegisterForTheAuctionResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RegisterForTheAuction"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.RegisterForTheAuctionRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.RegisterForTheAuctionResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("RegisterForTheAuction"))
+              .build();
+        }
+      }
+    }
+    return getRegisterForTheAuctionMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<auction.managment.GetUserActiveAuctionsRequest,
+      auction.managment.GetUserActiveAuctionsResponse> getGetUserActiveAuctionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetUserActiveAuctions",
+      requestType = auction.managment.GetUserActiveAuctionsRequest.class,
+      responseType = auction.managment.GetUserActiveAuctionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.managment.GetUserActiveAuctionsRequest,
+      auction.managment.GetUserActiveAuctionsResponse> getGetUserActiveAuctionsMethod() {
+    io.grpc.MethodDescriptor<auction.managment.GetUserActiveAuctionsRequest, auction.managment.GetUserActiveAuctionsResponse> getGetUserActiveAuctionsMethod;
+    if ((getGetUserActiveAuctionsMethod = ArticleServiceGrpc.getGetUserActiveAuctionsMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getGetUserActiveAuctionsMethod = ArticleServiceGrpc.getGetUserActiveAuctionsMethod) == null) {
+          ArticleServiceGrpc.getGetUserActiveAuctionsMethod = getGetUserActiveAuctionsMethod =
+              io.grpc.MethodDescriptor.<auction.managment.GetUserActiveAuctionsRequest, auction.managment.GetUserActiveAuctionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetUserActiveAuctions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.GetUserActiveAuctionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.GetUserActiveAuctionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("GetUserActiveAuctions"))
+              .build();
+        }
+      }
+    }
+    return getGetUserActiveAuctionsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -191,6 +284,27 @@ public final class ArticleServiceGrpc {
     default void searchArticle(auction.managment.SearchArticleRequest request,
         io.grpc.stub.StreamObserver<auction.managment.SearchArticleResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSearchArticleMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void getOwnedAuctions(auction.managment.GetOwnedAuctionRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.GetOwnedAuctionResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOwnedAuctionsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void registerForTheAuction(auction.managment.RegisterForTheAuctionRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.RegisterForTheAuctionResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRegisterForTheAuctionMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void getUserActiveAuctions(auction.managment.GetUserActiveAuctionsRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.GetUserActiveAuctionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUserActiveAuctionsMethod(), responseObserver);
     }
   }
 
@@ -290,6 +404,30 @@ public final class ArticleServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSearchArticleMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getOwnedAuctions(auction.managment.GetOwnedAuctionRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.GetOwnedAuctionResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetOwnedAuctionsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void registerForTheAuction(auction.managment.RegisterForTheAuctionRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.RegisterForTheAuctionResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRegisterForTheAuctionMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getUserActiveAuctions(auction.managment.GetUserActiveAuctionsRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.GetUserActiveAuctionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetUserActiveAuctionsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -347,6 +485,27 @@ public final class ArticleServiceGrpc {
     public auction.managment.SearchArticleResponse searchArticle(auction.managment.SearchArticleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSearchArticleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public auction.managment.GetOwnedAuctionResponse getOwnedAuctions(auction.managment.GetOwnedAuctionRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetOwnedAuctionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public auction.managment.RegisterForTheAuctionResponse registerForTheAuction(auction.managment.RegisterForTheAuctionRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRegisterForTheAuctionMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public auction.managment.GetUserActiveAuctionsResponse getUserActiveAuctions(auction.managment.GetUserActiveAuctionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetUserActiveAuctionsMethod(), getCallOptions(), request);
     }
   }
 
@@ -408,10 +567,37 @@ public final class ArticleServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSearchArticleMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.managment.GetOwnedAuctionResponse> getOwnedAuctions(
+        auction.managment.GetOwnedAuctionRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetOwnedAuctionsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.managment.RegisterForTheAuctionResponse> registerForTheAuction(
+        auction.managment.RegisterForTheAuctionRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRegisterForTheAuctionMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.managment.GetUserActiveAuctionsResponse> getUserActiveAuctions(
+        auction.managment.GetUserActiveAuctionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetUserActiveAuctionsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ARTICLE = 0;
   private static final int METHODID_SEARCH_ARTICLE = 1;
+  private static final int METHODID_GET_OWNED_AUCTIONS = 2;
+  private static final int METHODID_REGISTER_FOR_THE_AUCTION = 3;
+  private static final int METHODID_GET_USER_ACTIVE_AUCTIONS = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -437,6 +623,18 @@ public final class ArticleServiceGrpc {
         case METHODID_SEARCH_ARTICLE:
           serviceImpl.searchArticle((auction.managment.SearchArticleRequest) request,
               (io.grpc.stub.StreamObserver<auction.managment.SearchArticleResponse>) responseObserver);
+          break;
+        case METHODID_GET_OWNED_AUCTIONS:
+          serviceImpl.getOwnedAuctions((auction.managment.GetOwnedAuctionRequest) request,
+              (io.grpc.stub.StreamObserver<auction.managment.GetOwnedAuctionResponse>) responseObserver);
+          break;
+        case METHODID_REGISTER_FOR_THE_AUCTION:
+          serviceImpl.registerForTheAuction((auction.managment.RegisterForTheAuctionRequest) request,
+              (io.grpc.stub.StreamObserver<auction.managment.RegisterForTheAuctionResponse>) responseObserver);
+          break;
+        case METHODID_GET_USER_ACTIVE_AUCTIONS:
+          serviceImpl.getUserActiveAuctions((auction.managment.GetUserActiveAuctionsRequest) request,
+              (io.grpc.stub.StreamObserver<auction.managment.GetUserActiveAuctionsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -470,6 +668,27 @@ public final class ArticleServiceGrpc {
               auction.managment.SearchArticleRequest,
               auction.managment.SearchArticleResponse>(
                 service, METHODID_SEARCH_ARTICLE)))
+        .addMethod(
+          getGetOwnedAuctionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.managment.GetOwnedAuctionRequest,
+              auction.managment.GetOwnedAuctionResponse>(
+                service, METHODID_GET_OWNED_AUCTIONS)))
+        .addMethod(
+          getRegisterForTheAuctionMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.managment.RegisterForTheAuctionRequest,
+              auction.managment.RegisterForTheAuctionResponse>(
+                service, METHODID_REGISTER_FOR_THE_AUCTION)))
+        .addMethod(
+          getGetUserActiveAuctionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.managment.GetUserActiveAuctionsRequest,
+              auction.managment.GetUserActiveAuctionsResponse>(
+                service, METHODID_GET_USER_ACTIVE_AUCTIONS)))
         .build();
   }
 
@@ -520,6 +739,9 @@ public final class ArticleServiceGrpc {
               .setSchemaDescriptor(new ArticleServiceFileDescriptorSupplier())
               .addMethod(getCreateArticleMethod())
               .addMethod(getSearchArticleMethod())
+              .addMethod(getGetOwnedAuctionsMethod())
+              .addMethod(getRegisterForTheAuctionMethod())
+              .addMethod(getGetUserActiveAuctionsMethod())
               .build();
         }
       }

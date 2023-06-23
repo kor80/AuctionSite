@@ -16,13 +16,18 @@ public class MemoryManager
     private static MemoryImplFactory factory = new JsonFactory();
     private final MemoryImplementation memoryImpl;
 
-    private ConcurrentMap<String, LinkedList<ArticleInfo>> articles;
-    private ConcurrentMap<String, LinkedList<ArticleInfo>> newArticles;
+    private ConcurrentMap<String, LinkedList<Integer>> userArticles;       //user,articleID
+    private ConcurrentMap<String, LinkedList<Integer>> userNewArticles;    //user,articleID
+
+    private ConcurrentMap<Integer,ArticleInfo> articles;
+    private ConcurrentMap<Integer,ArticleInfo> newArticles;
 
     private int lastArticleID=0;
 
     private MemoryManager(){
         memoryImpl = factory.createMemoryImplementation();
+        userArticles = new ConcurrentHashMap<>();
+        userNewArticles = new ConcurrentHashMap<>();
         articles = new ConcurrentHashMap<>();
         newArticles = new ConcurrentHashMap<>();
         loadArticles();
@@ -67,13 +72,15 @@ public class MemoryManager
     private synchronized void loadArticle(String user, ArticleInfo info){
         if(lastArticleID <= info.getId() ) lastArticleID = info.getId()+1;
 
-        if( !articles.containsKey(user) ) {
-            LinkedList<ArticleInfo> temp =
+        articles.put(info.getId(),info);
+
+        if( !userArticles.containsKey(user) ) {
+            LinkedList<Integer> temp =
                     new LinkedList<>();
-            temp.add(info);
-            articles.put(user, temp);
+            temp.add(info.getId());
+            userArticles.put(user, temp);
         }
-        else articles.get(user).add(info);
+        else userArticles.get(user).add(info.getId());
         System.out.println("Caricato in memoria primaria l'articolo: ");
         printArticle(user, info);
     }//loadArticle
@@ -81,13 +88,16 @@ public class MemoryManager
     public synchronized void userLoadArticle(String user, ArticleInfo info){
         ArticleInfo newInfo = info.toBuilder().setId(lastArticleID).build();
         lastArticleID++;
-        if( !newArticles.containsKey(user) ) {
-            LinkedList<ArticleInfo> temp =
+
+        newArticles.put(newInfo.getId(),newInfo);
+
+        if( !userNewArticles.containsKey(user) ) {
+            LinkedList<Integer> temp =
                     new LinkedList<>();
-            temp.add(newInfo);
-            newArticles.put(user, temp);
+            temp.add(newInfo.getId());
+            userNewArticles.put(user, temp);
         }
-        else newArticles.get(user).add(newInfo);
+        else userNewArticles.get(user).add(newInfo.getId());
         System.out.println("L'utente ha caricato l'articolo: ");
         printArticle(user,info);
     }//userLoadArticle
@@ -111,9 +121,9 @@ public class MemoryManager
      * inside the database chosen by current factory.
      */
     public void saveAll(){
-        for( Map.Entry<String, LinkedList<ArticleInfo>> user : newArticles.entrySet() ){
-            for( ArticleInfo articleInfo : user.getValue() )
-                saveArticle(user.getKey(),articleInfo);
+        for( Map.Entry<String, LinkedList<Integer>> user : userNewArticles.entrySet() ){
+            for( Integer id : user.getValue() )
+                saveArticle(user.getKey(), newArticles.get(id) );
         }//for
     }//saveAll
 
@@ -131,15 +141,36 @@ public class MemoryManager
                 user, info.getName(), date, info.getType(), info.getDescription());
     }//printArticle
 
-    public LinkedList<ArticleInfo> getArticles(){
+    public LinkedList<ArticleInfo> getUserArticles(){
         LinkedList<ArticleInfo> ret = new LinkedList<>();
 
-        for( Map.Entry<String,LinkedList<ArticleInfo>> entry : articles.entrySet() )
-            ret.addAll(entry.getValue());
+        for( Map.Entry<String,LinkedList<Integer>> entry : userArticles.entrySet() )
+            for( Integer id : entry.getValue() )
+                ret.add(articles.get(id));
 
-        for( Map.Entry<String,LinkedList<ArticleInfo>> entry : newArticles.entrySet() )
-            ret.addAll(entry.getValue());
+        for( Map.Entry<String,LinkedList<Integer>> entry : userNewArticles.entrySet() )
+            for( Integer id : entry.getValue() )
+                ret.add(newArticles.get(id));
 
         return ret;
     }//getArticles
+
+    public LinkedList<ArticleInfo> getArticles(String user){
+        LinkedList<ArticleInfo> ret = new LinkedList<>();
+        if(userArticles.containsKey(user))
+            for( Integer id : userArticles.get(user) )
+                ret.add(articles.get(id));
+
+        if(userNewArticles.containsKey(user))
+            for( Integer id : userNewArticles.get(user) )
+                ret.add(newArticles.get(id));
+
+        return ret;
+    }//getArticles
+
+    public ArticleInfo getArticle(int id){
+        if( articles.containsKey(id) ) return articles.get(id);
+        if( newArticles.containsKey(id) ) return newArticles.get(id);
+        return null;
+    }//getArticle
 }

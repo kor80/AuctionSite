@@ -21,6 +21,18 @@ message SearchArticleRequest { SearchInfo info = 1; }
 
 message SearchArticleResponse{ repeated ArticleInfo info = 1; }
 
+message GetOwnedAuctionRequest{ string user = 1; }
+
+message GetOwnedAuctionResponse{ repeated ArticleInfo info = 1; }
+
+message RegisterForTheAuctionRequest{ string user = 1; int32 auctionId = 2; }
+
+message RegisterForTheAuctionResponse{ bool upshot = 1; }
+
+message GetUserActiveAuctionsRequest{ string user = 1; }
+
+message GetUserActiveAuctionsResponse{ repeated ArticleInfo info = 1; }
+
 /*
 message SearchLaptopRequest { Filter filter = 1; }
 
@@ -58,6 +70,13 @@ service ArticleService {
   rpc CreateArticle(CreateArticleRequest) returns (CreateArticleResponse) {};
 
   rpc SearchArticle(SearchArticleRequest) returns (SearchArticleResponse) {};
+
+  rpc GetOwnedAuctions(GetOwnedAuctionRequest) returns (GetOwnedAuctionResponse) {};
+
+  rpc RegisterForTheAuction(RegisterForTheAuctionRequest) returns (RegisterForTheAuctionResponse) {};
+
+  rpc GetUserActiveAuctions(GetUserActiveAuctionsRequest) returns (GetUserActiveAuctionsResponse) {};
+
   /*
   rpc SearchLaptop(SearchLaptopRequest) returns (stream SearchLaptopResponse) {
   };
