@@ -134,6 +134,14 @@ public class JsonReader implements MemoryReader
     }//readId
 
     @Override
+    public void readWinner(){ infoBuilder.setWinner( (String) currentInfo.get("winner")); }//readWinner
+
+    @Override
+    public void readEndingPrice() {
+        infoBuilder.setEndingPrice( (double) currentInfo.get("endingPrice"));
+    }//readStartingPrice
+
+    @Override
     public void closeArticle() {
         Article article = articleBuilder.setInfo(infoBuilder.build()).build();
         ret.add(article);

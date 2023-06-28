@@ -64,6 +64,26 @@ public final class ArticleServiceOuterClass {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_auction_GetUserActiveAuctionsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_auction_GetRegisteredAuctionsRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_auction_GetRegisteredAuctionsRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_auction_GetRegisteredAuctionsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_auction_GetRegisteredAuctionsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_auction_MakeOfferRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_auction_MakeOfferRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_auction_MakeOfferResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_auction_MakeOfferResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -74,42 +94,53 @@ public final class ArticleServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\025article_service.proto\022\007auction\032\022articl" +
-      "e_info.proto\032\021search_info.proto\"H\n\024Creat" +
-      "eArticleRequest\022\014\n\004user\030\001 \001(\t\022\"\n\004info\030\002 " +
-      "\001(\0132\024.auction.ArticleInfo\"6\n\025CreateArtic" +
-      "leResponse\022\035\n\005state\030\001 \001(\0162\016.auction.Stat" +
-      "e\"9\n\024SearchArticleRequest\022!\n\004info\030\001 \001(\0132" +
-      "\023.auction.SearchInfo\";\n\025SearchArticleRes" +
+      "e_info.proto\032\021search_info.proto\032\027registr" +
+      "ation_info.proto\"H\n\024CreateArticleRequest" +
+      "\022\014\n\004user\030\001 \001(\t\022\"\n\004info\030\002 \001(\0132\024.auction.A" +
+      "rticleInfo\"6\n\025CreateArticleResponse\022\035\n\005s" +
+      "tate\030\001 \001(\0162\016.auction.State\"9\n\024SearchArti" +
+      "cleRequest\022!\n\004info\030\001 \001(\0132\023.auction.Searc" +
+      "hInfo\";\n\025SearchArticleResponse\022\"\n\004info\030\001" +
+      " \003(\0132\024.auction.ArticleInfo\"&\n\026GetOwnedAu" +
+      "ctionRequest\022\014\n\004user\030\001 \001(\t\"=\n\027GetOwnedAu" +
+      "ctionResponse\022\"\n\004info\030\001 \003(\0132\024.auction.Ar" +
+      "ticleInfo\"G\n\034RegisterForTheAuctionReques" +
+      "t\022\'\n\004info\030\001 \001(\0132\031.auction.RegistrationIn" +
+      "fo\"/\n\035RegisterForTheAuctionResponse\022\016\n\006u" +
+      "pshot\030\001 \001(\010\",\n\034GetUserActiveAuctionsRequ" +
+      "est\022\014\n\004user\030\001 \001(\t\"C\n\035GetUserActiveAuctio" +
+      "nsResponse\022\"\n\004info\030\001 \003(\0132\024.auction.Artic" +
+      "leInfo\",\n\034GetRegisteredAuctionsRequest\022\014" +
+      "\n\004user\030\001 \001(\t\"C\n\035GetRegisteredAuctionsRes" +
       "ponse\022\"\n\004info\030\001 \003(\0132\024.auction.ArticleInf" +
-      "o\"&\n\026GetOwnedAuctionRequest\022\014\n\004user\030\001 \001(" +
-      "\t\"=\n\027GetOwnedAuctionResponse\022\"\n\004info\030\001 \003" +
-      "(\0132\024.auction.ArticleInfo\"?\n\034RegisterForT" +
-      "heAuctionRequest\022\014\n\004user\030\001 \001(\t\022\021\n\tauctio" +
-      "nId\030\002 \001(\005\"/\n\035RegisterForTheAuctionRespon" +
-      "se\022\016\n\006upshot\030\001 \001(\010\",\n\034GetUserActiveAucti" +
-      "onsRequest\022\014\n\004user\030\001 \001(\t\"C\n\035GetUserActiv" +
-      "eAuctionsResponse\022\"\n\004info\030\001 \003(\0132\024.auctio" +
-      "n.ArticleInfo*\037\n\005State\022\013\n\007SUCCESS\020\000\022\t\n\005E" +
-      "RROR\020\0012\341\003\n\016ArticleService\022P\n\rCreateArtic" +
-      "le\022\035.auction.CreateArticleRequest\032\036.auct" +
-      "ion.CreateArticleResponse\"\000\022P\n\rSearchArt" +
-      "icle\022\035.auction.SearchArticleRequest\032\036.au" +
-      "ction.SearchArticleResponse\"\000\022W\n\020GetOwne" +
-      "dAuctions\022\037.auction.GetOwnedAuctionReque" +
-      "st\032 .auction.GetOwnedAuctionResponse\"\000\022h" +
-      "\n\025RegisterForTheAuction\022%.auction.Regist" +
-      "erForTheAuctionRequest\032&.auction.Registe" +
-      "rForTheAuctionResponse\"\000\022h\n\025GetUserActiv" +
-      "eAuctions\022%.auction.GetUserActiveAuction" +
-      "sRequest\032&.auction.GetUserActiveAuctions" +
-      "Response\"\000B\025\n\021auction.managmentP\001b\006proto" +
-      "3"
+      "o\"C\n\020MakeOfferRequest\022\021\n\tauctionId\030\001 \001(\005" +
+      "\022\016\n\006amount\030\002 \001(\001\022\014\n\004user\030\003 \001(\t\"#\n\021MakeOf" +
+      "ferResponse\022\016\n\006upshot\030\001 \001(\010*\037\n\005State\022\013\n\007" +
+      "SUCCESS\020\000\022\t\n\005ERROR\020\0012\221\005\n\016ArticleService\022" +
+      "P\n\rCreateArticle\022\035.auction.CreateArticle" +
+      "Request\032\036.auction.CreateArticleResponse\"" +
+      "\000\022P\n\rSearchArticle\022\035.auction.SearchArtic" +
+      "leRequest\032\036.auction.SearchArticleRespons" +
+      "e\"\000\022W\n\020GetOwnedAuctions\022\037.auction.GetOwn" +
+      "edAuctionRequest\032 .auction.GetOwnedAucti" +
+      "onResponse\"\000\022h\n\025RegisterForTheAuction\022%." +
+      "auction.RegisterForTheAuctionRequest\032&.a" +
+      "uction.RegisterForTheAuctionResponse\"\000\022h" +
+      "\n\025GetUserActiveAuctions\022%.auction.GetUse" +
+      "rActiveAuctionsRequest\032&.auction.GetUser" +
+      "ActiveAuctionsResponse\"\000\022h\n\025GetRegistere" +
+      "dAuctions\022%.auction.GetRegisteredAuction" +
+      "sRequest\032&.auction.GetRegisteredAuctions" +
+      "Response\"\000\022D\n\tMakeOffer\022\031.auction.MakeOf" +
+      "ferRequest\032\032.auction.MakeOfferResponse\"\000" +
+      "B\025\n\021auction.managmentP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           auction.managment.ArticleInfoOuterClass.getDescriptor(),
           auction.search.SearchInfoOuterClass.getDescriptor(),
+          auction.managment.auctions.RegistrationInfoOuterClass.getDescriptor(),
         });
     internal_static_auction_CreateArticleRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -152,7 +183,7 @@ public final class ArticleServiceOuterClass {
     internal_static_auction_RegisterForTheAuctionRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_auction_RegisterForTheAuctionRequest_descriptor,
-        new java.lang.String[] { "User", "AuctionId", });
+        new java.lang.String[] { "Info", });
     internal_static_auction_RegisterForTheAuctionResponse_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_auction_RegisterForTheAuctionResponse_fieldAccessorTable = new
@@ -171,8 +202,33 @@ public final class ArticleServiceOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_auction_GetUserActiveAuctionsResponse_descriptor,
         new java.lang.String[] { "Info", });
+    internal_static_auction_GetRegisteredAuctionsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_auction_GetRegisteredAuctionsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_auction_GetRegisteredAuctionsRequest_descriptor,
+        new java.lang.String[] { "User", });
+    internal_static_auction_GetRegisteredAuctionsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_auction_GetRegisteredAuctionsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_auction_GetRegisteredAuctionsResponse_descriptor,
+        new java.lang.String[] { "Info", });
+    internal_static_auction_MakeOfferRequest_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_auction_MakeOfferRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_auction_MakeOfferRequest_descriptor,
+        new java.lang.String[] { "AuctionId", "Amount", "User", });
+    internal_static_auction_MakeOfferResponse_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_auction_MakeOfferResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_auction_MakeOfferResponse_descriptor,
+        new java.lang.String[] { "Upshot", });
     auction.managment.ArticleInfoOuterClass.getDescriptor();
     auction.search.SearchInfoOuterClass.getDescriptor();
+    auction.managment.auctions.RegistrationInfoOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

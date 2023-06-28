@@ -1,12 +1,10 @@
 package auction.managment.implementation;
 
 import auction.managment.Article;
+import auction.managment.auctions.ClosedAuction;
 import auction.managment.auctions.Registration;
 import auction.managment.builder.reader.*;
-import auction.managment.builder.writer.JsonWriter;
-import auction.managment.builder.writer.MemoryWriter;
-import auction.managment.builder.writer.MemoryWriterDirector;
-import auction.managment.builder.writer.RegistrationsWriterDirector;
+import auction.managment.builder.writer.*;
 
 import java.util.Collection;
 
@@ -14,27 +12,36 @@ public class JsonImplementation implements MemoryImplementation
 {
     private final String articlesPath = "articles.json";
     private final String registrationsPath = "registrations.json";
+    private final String closedAuctionsPath = "closedAuctions.json";
 
     private MemoryReader readerBuilder;
-    private RegistrationReader registrationReaderBuilder;
+    private ArrayReader registrationReaderBuilder;
+    private ArrayReader closedAuctionsReaderBuilder;
     private MemoryReaderDirector articlesReaderDirector;
     private RegistrationReaderDirector registrationReaderDirector;
+    private ClosedAuctionsReaderDirector closedAuctionsReaderDirector;
 
     private MemoryWriter articlesWriterBuilder;
     private MemoryWriter registrationsWriterBuilder;
+    private MemoryWriter closedAuctionsWriterBuilder;
     private MemoryWriterDirector articlesWriterDirector;
     private RegistrationsWriterDirector registrationsWriterDirector;
+    private ClosedAuctionsWriterDirector closedAuctionsWriterDirector;
 
     public JsonImplementation(){
         readerBuilder = new JsonReader(articlesPath);
-        registrationReaderBuilder = new JsonRegistrationReader(registrationsPath);
+        registrationReaderBuilder = new JsonArrayReader(registrationsPath);
+        closedAuctionsReaderBuilder = new JsonArrayReader(closedAuctionsPath);
         articlesReaderDirector = new MemoryReaderDirector(readerBuilder);
         registrationReaderDirector = new RegistrationReaderDirector(registrationReaderBuilder);
+        closedAuctionsReaderDirector = new ClosedAuctionsReaderDirector(closedAuctionsReaderBuilder);
 
         articlesWriterBuilder = new JsonWriter(articlesPath);
         registrationsWriterBuilder = new JsonWriter(registrationsPath);
+        closedAuctionsWriterBuilder = new JsonWriter(closedAuctionsPath);
         articlesWriterDirector = new MemoryWriterDirector(articlesWriterBuilder);
         registrationsWriterDirector = new RegistrationsWriterDirector(registrationsWriterBuilder);
+        closedAuctionsWriterDirector = new ClosedAuctionsWriterDirector(closedAuctionsWriterBuilder);
     }
 
     @Override
@@ -43,9 +50,14 @@ public class JsonImplementation implements MemoryImplementation
     }//saveArticle
 
     @Override
-    public void saveRegistrations(Registration registrations) {
-        registrationsWriterDirector.save(registrations);
+    public void saveRegistration(Registration registration) {
+        registrationsWriterDirector.save(registration);
     }//saveRegistrations
+
+    @Override
+    public void saveClosedAuction(ClosedAuction auction) {
+        closedAuctionsWriterDirector.save(auction);
+    }//saveClosedAuction
 
     @Override
     public Collection<Article> loadAllArticles() {
@@ -56,6 +68,11 @@ public class JsonImplementation implements MemoryImplementation
     public Collection<Registration> loadAllRegistrations() {
         return registrationReaderDirector.buildMemory();
     }//loadAllRegistrations
+
+    @Override
+    public Collection<ClosedAuction> loadAllClosedAuctions() {
+        return closedAuctionsReaderDirector.buildMemory();
+    }//loadAllClosedAuctions
 
 
 }

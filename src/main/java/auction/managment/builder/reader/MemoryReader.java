@@ -20,6 +20,8 @@ public interface MemoryReader
     void readType();
     void readDescription();
     void readId();
+    void readWinner();
+    void readEndingPrice();
     void closeArticle();
     Collection<Article> getArticles();
 }//MemoryReader

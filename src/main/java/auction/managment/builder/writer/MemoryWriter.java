@@ -19,6 +19,11 @@ public interface MemoryWriter
     void saveEndingTime(Time time);
     void saveStartingPrice(double price);
     void saveBuyNowPrice(double price);
+    void saveWinner(String winner);
+    void saveEndingPrice(double price);
+    void saveAuctionId(int id);
+    void savePort(int port);
+    void saveIP(String ip);
     void saveType(ArticleType type);
     void saveDescription(String description);
     void saveArticleId(int id);

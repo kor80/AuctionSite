@@ -2,9 +2,9 @@ package auction.service;
 
 import auction.managment.*;
 import auction.managment.auctions.AuctionsManager;
+import auction.managment.auctions.RegistrationInfo;
 import auction.managment.view.ClientRequestsHandler;
 import auction.search.SearchManager;
-import auction.search.decorator.SimpleSearcher;
 import io.grpc.Context;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -131,8 +131,9 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
 
     @Override
     public void registerForTheAuction(RegisterForTheAuctionRequest request, StreamObserver<RegisterForTheAuctionResponse> responseObserver){
-        String user = request.getUser();
-        int id = request.getAuctionId();
+        RegistrationInfo info = request.getInfo();
+        String user = info.getUser();
+        int id = info.getArticleId();
 
         logger.info("got a register-for-the-auction "+id+" request from user: "+user);
 
@@ -148,7 +149,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
 
         try{
             RegisterForTheAuctionResponse response = RegisterForTheAuctionResponse.newBuilder()
-                    .setUpshot(auctionsManager.registerAuction(user,id)).build();
+                    .setUpshot(auctionsManager.registerAuction(info)).build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
             logger.info("User "+user+" successfully registered to auction "+id);
@@ -195,5 +196,73 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
             return;
         }
     }//getUserActiveAuctions
+
+    @Override
+    public void getRegisteredAuctions(GetRegisteredAuctionsRequest request, StreamObserver<GetRegisteredAuctionsResponse> responseObserver){
+        String user = request.getUser();
+
+        logger.info("got a get-registered-auction-request from user: "+user);
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            GetRegisteredAuctionsResponse response = GetRegisteredAuctionsResponse.newBuilder()
+                    .addAllInfo(auctionsManager.getRegisteredAuctions(user)).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("User "+user+" gets all his registered auctions");
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//getUserActiveAuctions
+
+    @Override
+    public void makeOffer(MakeOfferRequest request, StreamObserver<MakeOfferResponse> responseObserver){
+        String user = request.getUser();
+        double amount = request.getAmount();
+        int auctionID = request.getAuctionId();
+
+        logger.info("got a make-offer-request from user: "+user+" for auction "+auctionID+" of amount "+amount);
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            MakeOfferResponse response = MakeOfferResponse.newBuilder()
+                    .setUpshot(auctionsManager.makeOffer(auctionID,amount,user)).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("User "+user+" make the offer");
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//makeOffer
 
 }//ArticleService

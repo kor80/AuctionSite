@@ -7,6 +7,7 @@ option java_multiple_files = true;
 
 import "article_info.proto";
 import "search_info.proto";
+import "registration_info.proto";
 
 enum State{
   SUCCESS = 0;
@@ -25,13 +26,27 @@ message GetOwnedAuctionRequest{ string user = 1; }
 
 message GetOwnedAuctionResponse{ repeated ArticleInfo info = 1; }
 
-message RegisterForTheAuctionRequest{ string user = 1; int32 auctionId = 2; }
+message RegisterForTheAuctionRequest{ RegistrationInfo info = 1; }
 
 message RegisterForTheAuctionResponse{ bool upshot = 1; }
 
 message GetUserActiveAuctionsRequest{ string user = 1; }
 
 message GetUserActiveAuctionsResponse{ repeated ArticleInfo info = 1; }
+
+message GetRegisteredAuctionsRequest{ string user = 1; }
+
+message GetRegisteredAuctionsResponse{ repeated ArticleInfo info = 1; }
+
+message MakeOfferRequest{
+  int32 auctionId = 1;
+  double amount = 2;
+  string user = 3;
+}
+
+message MakeOfferResponse{
+  bool upshot = 1;
+}
 
 /*
 message SearchLaptopRequest { Filter filter = 1; }
@@ -77,6 +92,9 @@ service ArticleService {
 
   rpc GetUserActiveAuctions(GetUserActiveAuctionsRequest) returns (GetUserActiveAuctionsResponse) {};
 
+  rpc GetRegisteredAuctions(GetRegisteredAuctionsRequest) returns (GetRegisteredAuctionsResponse) {};
+
+  rpc MakeOffer(MakeOfferRequest) returns (MakeOfferResponse) {};
   /*
   rpc SearchLaptop(SearchLaptopRequest) returns (stream SearchLaptopResponse) {
   };

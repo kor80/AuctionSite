@@ -1,12 +1,13 @@
 package auction.managment;
 
+import auction.managment.auctions.ClosedAuction;
 import auction.managment.auctions.Registration;
 import auction.managment.implementation.JsonFactory;
 import auction.managment.implementation.MemoryImplFactory;
 import auction.managment.implementation.MemoryImplementation;
+import auction.utils.DateChecker;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -18,8 +19,9 @@ public class MemoryManager
     private static MemoryImplFactory factory = new JsonFactory();
     private final MemoryImplementation memoryImpl;
 
-    private ConcurrentMap<String, LinkedList<Integer>> userArticles;       //user,articleID
-    private ConcurrentMap<String, LinkedList<Integer>> userNewArticles;    //user,articleID
+    private ConcurrentMap<String, LinkedList<Integer>> userActiveArticles;     //user,articleID
+    private ConcurrentMap<String, LinkedList<Integer>> userExpiredArticles;    //user,articleID
+    private ConcurrentMap<String, LinkedList<Integer>> userNewArticles;        //user,articleID
 
     private ConcurrentMap<Integer,ArticleInfo> articles;
     private ConcurrentMap<Integer,ArticleInfo> newArticles;
@@ -28,7 +30,8 @@ public class MemoryManager
 
     private MemoryManager(){
         memoryImpl = factory.createMemoryImplementation();
-        userArticles = new ConcurrentHashMap<>();
+        userActiveArticles = new ConcurrentHashMap<>();
+        userExpiredArticles = new ConcurrentHashMap<>();
         userNewArticles = new ConcurrentHashMap<>();
         articles = new ConcurrentHashMap<>();
         newArticles = new ConcurrentHashMap<>();
@@ -68,8 +71,12 @@ public class MemoryManager
         return memoryImpl.loadAllRegistrations();
     }//loadRegisteredAuctions
 
+    public Collection<ClosedAuction> loadClosedAuctions(){
+        return memoryImpl.loadAllClosedAuctions();
+    }//loadClosedAuctions
+
     /**
-     * Puts the article loaded by user {@user user} with {@info info}
+     * Saves the article previously uploaded by the user {@user user} with {@info info}
      * inside the predefined data structure in main memory
      *
      * @param  user  the user who loaded the article
@@ -80,17 +87,35 @@ public class MemoryManager
 
         articles.put(info.getId(),info);
 
-        if( !userArticles.containsKey(user) ) {
-            LinkedList<Integer> temp =
-                    new LinkedList<>();
-            temp.add(info.getId());
-            userArticles.put(user, temp);
+        if(DateChecker.isExpired(info)){
+            if( !userExpiredArticles.containsKey(user) ){
+                LinkedList<Integer> temp =
+                        new LinkedList<>();
+                temp.add(info.getId());
+                userExpiredArticles.put(user, temp);
+            }
         }
-        else userArticles.get(user).add(info.getId());
+        else{
+            if( !userActiveArticles.containsKey(user) ) {
+                LinkedList<Integer> temp =
+                        new LinkedList<>();
+                temp.add(info.getId());
+                userActiveArticles.put(user, temp);
+            }
+            else userActiveArticles.get(user).add(info.getId());
+        }
+
         System.out.println("Caricato in memoria primaria l'articolo: ");
         printArticle(user, info);
     }//loadArticle
 
+    /**
+     * Saves the article loaded by user {@user user} with {@info info}
+     * inside the data structure in main memory.
+     *
+     * @param  user  the user who loaded the article
+     * @param  info the informations of the article
+     */
     public synchronized void userLoadArticle(String user, ArticleInfo info){
         ArticleInfo newInfo = info.toBuilder().setId(lastArticleID).build();
         lastArticleID++;
@@ -116,17 +141,35 @@ public class MemoryManager
      * @param  info the informations of the article
      * @see         MemoryImplFactory
      */
-    private synchronized void saveArticle(String user, ArticleInfo info){
+    public synchronized void saveArticle(String user, ArticleInfo info){
         memoryImpl.saveArticle(Article.newBuilder().setUser(user).setInfo(info).build());
         System.out.println("Salvato in memoria secondaria l'articolo: ");
         printArticle(user,info);
     }//saveArticle
 
-    //TODO doc
-    public synchronized void saveRegistrations(Registration registrations){
-        memoryImpl.saveRegistrations(registrations);
-        System.out.println("Salvata in memoria secondaria la registrazione seguente:\n"+registrations);
+    /**
+     * Saves the registration {@registration registration} performed by user
+     * inside the database chosen by current factory.
+     *
+     * @param  registration username, article_id, user_ip and user_port
+     * @see Registration
+     */
+    public synchronized void saveRegistration(Registration registration){
+        memoryImpl.saveRegistration(registration);
+        System.out.println("Salvata in memoria secondaria la registrazione seguente:\n"+registration);
     }//saveRegistrations
+
+    /**
+     * Saves an expired auction
+     * inside the database chosen by current factory.
+     *
+     * @param  auction  auction_id, winner and ending_price
+     * @see ClosedAuction
+     */
+    public synchronized void saveClosedAuction(ClosedAuction auction){
+        memoryImpl.saveClosedAuction(auction);
+        System.out.println("Salvata in memoria secondaria la seguente asta chiusa:\n"+auction);
+    }//saveClosedAuction
 
     /**
      * Saves all the new articles(articles loaded in the current server session)
@@ -134,7 +177,7 @@ public class MemoryManager
      */
     public void saveAllArticles(){
         for( Map.Entry<String, LinkedList<Integer>> user : userNewArticles.entrySet() ){
-            for( Integer id : user.getValue() )
+            for( int id : user.getValue() )
                 saveArticle(user.getKey(), newArticles.get(id) );
         }//for
     }//saveAll
@@ -153,33 +196,58 @@ public class MemoryManager
                 user, info.getName(), date, info.getType(), info.getDescription());
     }//printArticle
 
-    public LinkedList<ArticleInfo> getUserArticles(){
+    /**
+     * Returns all the articles uploaded by users and not expired.
+     *
+     * @see         MemoryImplFactory
+     * @return LinkedList<ArticleInfo>
+     */
+    public LinkedList<ArticleInfo> getArticles(){
         LinkedList<ArticleInfo> ret = new LinkedList<>();
 
-        for( Map.Entry<String,LinkedList<Integer>> entry : userArticles.entrySet() )
-            for( Integer id : entry.getValue() )
+        for( Map.Entry<String,LinkedList<Integer>> entry : userActiveArticles.entrySet() )
+            for( int id : entry.getValue() )
                 ret.add(articles.get(id));
 
         for( Map.Entry<String,LinkedList<Integer>> entry : userNewArticles.entrySet() )
-            for( Integer id : entry.getValue() )
+            for( int id : entry.getValue() )
                 ret.add(newArticles.get(id));
 
         return ret;
     }//getArticles
 
+    /**
+     * Returns all the articles uploaded by the user {@user user}, also
+     * the expired articles.
+     *
+     * @param  user  the user who loaded the article
+     * @see ArticleInfo
+     */
     public LinkedList<ArticleInfo> getArticles(String user){
         LinkedList<ArticleInfo> ret = new LinkedList<>();
-        if(userArticles.containsKey(user))
-            for( Integer id : userArticles.get(user) )
+        if(userActiveArticles.containsKey(user))
+            for( int id : userActiveArticles.get(user) )
+                ret.add(articles.get(id));
+
+        if( userExpiredArticles.containsKey(user))
+            for( int id : userExpiredArticles.get(user) )
                 ret.add(articles.get(id));
 
         if(userNewArticles.containsKey(user))
-            for( Integer id : userNewArticles.get(user) )
+            for( int id : userNewArticles.get(user) )
                 ret.add(newArticles.get(id));
 
         return ret;
     }//getArticles
 
+    /**
+     * Returns the article with specified id.
+     * The search is also carried out in expired articles .
+     *
+     * @param  id  the article id.
+     * @see ArticleInfo
+     * @return ArticleInfo if the article exists, null otherwise.
+     */
     public ArticleInfo getArticle(int id){
         if( articles.containsKey(id) ) return articles.get(id);
         if( newArticles.containsKey(id) ) return newArticles.get(id);

@@ -119,4 +119,22 @@ public interface ArticleInfoOrBuilder extends
    * @return The id.
    */
   int getId();
+
+  /**
+   * <code>string winner = 11;</code>
+   * @return The winner.
+   */
+  java.lang.String getWinner();
+  /**
+   * <code>string winner = 11;</code>
+   * @return The bytes for winner.
+   */
+  com.google.protobuf.ByteString
+      getWinnerBytes();
+
+  /**
+   * <code>double endingPrice = 12;</code>
+   * @return The endingPrice.
+   */
+  double getEndingPrice();
 }

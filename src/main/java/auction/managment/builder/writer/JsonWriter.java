@@ -125,6 +125,23 @@ public class JsonWriter implements MemoryWriter
     public void saveArticleId(int id){ info.put("id",id); }//saveId
 
     @Override
+    public void saveAuctionId(int id){ rootObject.put("id",id); }//saveAuctionId
+
+    @Override
+    public void savePort(int port){ rootObject.put("port",port); }//saveAuctionId
+
+    @Override
+    public void saveIP(String ip){ rootObject.put("ip",ip); }//saveAuctionId
+
+    @Override
+    public void saveWinner(String winner){ rootObject.put("winner",winner); }//saveWinner
+
+    @Override
+    public void saveEndingPrice(double price) {
+        rootObject.put("endingPrice",price);
+    }//saveEndingPrice
+
+    @Override
     public void saveRegistrationId(int id){
         rootObject.put("id",id);
     }//saveRegistrationId
