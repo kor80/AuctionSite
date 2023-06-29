@@ -2,7 +2,7 @@ package auction.managment.implementation;
 
 import auction.managment.Article;
 import auction.managment.auctions.ClosedAuction;
-import auction.managment.auctions.Registration;
+import auction.managment.auctions.RegistrationInfo;
 import auction.managment.builder.reader.*;
 import auction.managment.builder.writer.*;
 
@@ -50,7 +50,7 @@ public class JsonImplementation implements MemoryImplementation
     }//saveArticle
 
     @Override
-    public void saveRegistration(Registration registration) {
+    public void saveRegistration(RegistrationInfo registration) {
         registrationsWriterDirector.save(registration);
     }//saveRegistrations
 
@@ -65,7 +65,7 @@ public class JsonImplementation implements MemoryImplementation
     }//loadAllArticles
 
     @Override
-    public Collection<Registration> loadAllRegistrations() {
+    public Collection<RegistrationInfo> loadAllRegistrations() {
         return registrationReaderDirector.buildMemory();
     }//loadAllRegistrations
 

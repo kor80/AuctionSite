@@ -3,6 +3,7 @@ package auction.service;
 import auction.managment.*;
 import auction.managment.auctions.AuctionInfo;
 import auction.managment.auctions.RegistrationInfo;
+import auction.managment.controller.ClientController;
 import auction.search.SearchInfo;
 import io.grpc.*;
 import io.grpc.protobuf.services.ProtoReflectionService;
@@ -82,7 +83,7 @@ public class ArticleClient
 
 
 
-    public void createArticle(ArticleInfo info){
+    public boolean createArticle(ArticleInfo info){
         CreateArticleRequest request = CreateArticleRequest.newBuilder()
                                         .setUser(username).setInfo(info).build();
         CreateArticleResponse response = CreateArticleResponse.getDefaultInstance();
@@ -91,10 +92,11 @@ public class ArticleClient
             response = blockingStub.withDeadlineAfter(5, TimeUnit.SECONDS).createArticle(request);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "request failed: " + e.getMessage());
-            return;
+            return false;
         }
 
-        logger.info("Article created with state: " + response.getState());
+        logger.info("Article created with state: " + response.getUpshot());
+        return response.getUpshot();
     }//createArticle
 
     public Collection<ArticleInfo> searchArticle(SearchInfo info){

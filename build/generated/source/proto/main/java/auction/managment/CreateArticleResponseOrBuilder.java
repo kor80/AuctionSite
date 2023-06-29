@@ -8,13 +8,8 @@ public interface CreateArticleResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>.auction.State state = 1;</code>
-   * @return The enum numeric value on the wire for state.
+   * <code>bool upshot = 1;</code>
+   * @return The upshot.
    */
-  int getStateValue();
-  /**
-   * <code>.auction.State state = 1;</code>
-   * @return The state.
-   */
-  auction.managment.State getState();
+  boolean getUpshot();
 }

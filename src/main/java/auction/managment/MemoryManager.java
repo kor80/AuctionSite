@@ -1,7 +1,7 @@
 package auction.managment;
 
 import auction.managment.auctions.ClosedAuction;
-import auction.managment.auctions.Registration;
+import auction.managment.auctions.RegistrationInfo;
 import auction.managment.implementation.JsonFactory;
 import auction.managment.implementation.MemoryImplFactory;
 import auction.managment.implementation.MemoryImplementation;
@@ -67,7 +67,7 @@ public class MemoryManager
         }
     }//loadArticles
 
-    public Collection<Registration> loadRegisteredAuctions(){
+    public Collection<RegistrationInfo> loadRegisteredAuctions(){
         return memoryImpl.loadAllRegistrations();
     }//loadRegisteredAuctions
 
@@ -116,7 +116,7 @@ public class MemoryManager
      * @param  user  the user who loaded the article
      * @param  info the informations of the article
      */
-    public synchronized void userLoadArticle(String user, ArticleInfo info){
+    public synchronized boolean userLoadArticle(String user, ArticleInfo info){
         ArticleInfo newInfo = info.toBuilder().setId(lastArticleID).build();
         lastArticleID++;
 
@@ -131,6 +131,7 @@ public class MemoryManager
         else userNewArticles.get(user).add(newInfo.getId());
         System.out.println("L'utente ha caricato l'articolo: ");
         printArticle(user,info);
+        return true; //TODO pass through consistency check
     }//userLoadArticle
 
     /**
@@ -152,9 +153,9 @@ public class MemoryManager
      * inside the database chosen by current factory.
      *
      * @param  registration username, article_id, user_ip and user_port
-     * @see Registration
+     * @see RegistrationInfo
      */
-    public synchronized void saveRegistration(Registration registration){
+    public synchronized void saveRegistration(RegistrationInfo registration){
         memoryImpl.saveRegistration(registration);
         System.out.println("Salvata in memoria secondaria la registrazione seguente:\n"+registration);
     }//saveRegistrations

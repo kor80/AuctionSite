@@ -16,7 +16,6 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private CreateArticleResponse() {
-    state_ = 0;
   }
 
   @java.lang.Override
@@ -39,22 +38,15 @@ private static final long serialVersionUID = 0L;
             auction.managment.CreateArticleResponse.class, auction.managment.CreateArticleResponse.Builder.class);
   }
 
-  public static final int STATE_FIELD_NUMBER = 1;
-  private int state_ = 0;
+  public static final int UPSHOT_FIELD_NUMBER = 1;
+  private boolean upshot_ = false;
   /**
-   * <code>.auction.State state = 1;</code>
-   * @return The enum numeric value on the wire for state.
+   * <code>bool upshot = 1;</code>
+   * @return The upshot.
    */
-  @java.lang.Override public int getStateValue() {
-    return state_;
-  }
-  /**
-   * <code>.auction.State state = 1;</code>
-   * @return The state.
-   */
-  @java.lang.Override public auction.managment.State getState() {
-    auction.managment.State result = auction.managment.State.forNumber(state_);
-    return result == null ? auction.managment.State.UNRECOGNIZED : result;
+  @java.lang.Override
+  public boolean getUpshot() {
+    return upshot_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -71,8 +63,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (state_ != auction.managment.State.SUCCESS.getNumber()) {
-      output.writeEnum(1, state_);
+    if (upshot_ != false) {
+      output.writeBool(1, upshot_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -83,9 +75,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (state_ != auction.managment.State.SUCCESS.getNumber()) {
+    if (upshot_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(1, state_);
+        .computeBoolSize(1, upshot_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -102,7 +94,8 @@ private static final long serialVersionUID = 0L;
     }
     auction.managment.CreateArticleResponse other = (auction.managment.CreateArticleResponse) obj;
 
-    if (state_ != other.state_) return false;
+    if (getUpshot()
+        != other.getUpshot()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -114,8 +107,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + STATE_FIELD_NUMBER;
-    hash = (53 * hash) + state_;
+    hash = (37 * hash) + UPSHOT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getUpshot());
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -247,7 +241,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
-      state_ = 0;
+      upshot_ = false;
       return this;
     }
 
@@ -282,7 +276,7 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(auction.managment.CreateArticleResponse result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.state_ = state_;
+        result.upshot_ = upshot_;
       }
     }
 
@@ -330,8 +324,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(auction.managment.CreateArticleResponse other) {
       if (other == auction.managment.CreateArticleResponse.getDefaultInstance()) return this;
-      if (other.state_ != 0) {
-        setStateValue(other.getStateValue());
+      if (other.getUpshot() != false) {
+        setUpshot(other.getUpshot());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -360,7 +354,7 @@ private static final long serialVersionUID = 0L;
               done = true;
               break;
             case 8: {
-              state_ = input.readEnum();
+              upshot_ = input.readBool();
               bitField0_ |= 0x00000001;
               break;
             } // case 8
@@ -381,55 +375,34 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private int state_ = 0;
+    private boolean upshot_ ;
     /**
-     * <code>.auction.State state = 1;</code>
-     * @return The enum numeric value on the wire for state.
-     */
-    @java.lang.Override public int getStateValue() {
-      return state_;
-    }
-    /**
-     * <code>.auction.State state = 1;</code>
-     * @param value The enum numeric value on the wire for state to set.
-     * @return This builder for chaining.
-     */
-    public Builder setStateValue(int value) {
-      state_ = value;
-      bitField0_ |= 0x00000001;
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>.auction.State state = 1;</code>
-     * @return The state.
+     * <code>bool upshot = 1;</code>
+     * @return The upshot.
      */
     @java.lang.Override
-    public auction.managment.State getState() {
-      auction.managment.State result = auction.managment.State.forNumber(state_);
-      return result == null ? auction.managment.State.UNRECOGNIZED : result;
+    public boolean getUpshot() {
+      return upshot_;
     }
     /**
-     * <code>.auction.State state = 1;</code>
-     * @param value The state to set.
+     * <code>bool upshot = 1;</code>
+     * @param value The upshot to set.
      * @return This builder for chaining.
      */
-    public Builder setState(auction.managment.State value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
+    public Builder setUpshot(boolean value) {
+
+      upshot_ = value;
       bitField0_ |= 0x00000001;
-      state_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>.auction.State state = 1;</code>
+     * <code>bool upshot = 1;</code>
      * @return This builder for chaining.
      */
-    public Builder clearState() {
+    public Builder clearUpshot() {
       bitField0_ = (bitField0_ & ~0x00000001);
-      state_ = 0;
+      upshot_ = false;
       onChanged();
       return this;
     }

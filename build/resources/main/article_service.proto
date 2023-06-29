@@ -9,14 +9,9 @@ import "article_info.proto";
 import "search_info.proto";
 import "registration_info.proto";
 
-enum State{
-  SUCCESS = 0;
-  ERROR = 1;
-}
-
 message CreateArticleRequest { string user = 1; ArticleInfo info = 2; }
 
-message CreateArticleResponse { State state = 1; }
+message CreateArticleResponse { bool upshot = 1; }
 
 message SearchArticleRequest { SearchInfo info = 1; }
 

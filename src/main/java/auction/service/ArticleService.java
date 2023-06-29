@@ -3,6 +3,7 @@ package auction.service;
 import auction.managment.*;
 import auction.managment.auctions.AuctionsManager;
 import auction.managment.auctions.RegistrationInfo;
+import auction.managment.registrations.RegistrationManager;
 import auction.managment.view.ClientRequestsHandler;
 import auction.search.SearchManager;
 import io.grpc.Context;
@@ -17,6 +18,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
 
     private final MemoryManager memoryManager;
     private final SearchManager searchManager;
+    private final RegistrationManager registrationManager;
     private final ClientRequestsHandler clientRequestsHandler;
     private final AuctionsManager auctionsManager;
 
@@ -24,6 +26,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
         //TODO set memory manager factoru
         memoryManager = MemoryManager.getInstance();
         searchManager = SearchManager.getInstance();
+        registrationManager = RegistrationManager.getInstance();
         clientRequestsHandler = ClientRequestsHandler.getInstance();
         auctionsManager = AuctionsManager.getInstance();
     }
@@ -45,8 +48,9 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
             return;
         }
 
+        boolean upshot = false;
         try{
-            memoryManager.userLoadArticle(user,info);
+            upshot = memoryManager.userLoadArticle(user,info);
             //memoryManager.saveArticle(user, info);
         }
         catch( Exception e ){
@@ -58,7 +62,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
             return;
         }
 
-        CreateArticleResponse response = CreateArticleResponse.newBuilder().setState(State.SUCCESS).build();
+        CreateArticleResponse response = CreateArticleResponse.newBuilder().setUpshot(upshot).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
 
@@ -149,10 +153,9 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
 
         try{
             RegisterForTheAuctionResponse response = RegisterForTheAuctionResponse.newBuilder()
-                    .setUpshot(auctionsManager.registerAuction(info)).build();
+                    .setUpshot(registrationManager.registerAuction(info)).build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-            logger.info("User "+user+" successfully registered to auction "+id);
         }
         catch( Exception e ){
             responseObserver.onError(
@@ -215,7 +218,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
 
         try{
             GetRegisteredAuctionsResponse response = GetRegisteredAuctionsResponse.newBuilder()
-                    .addAllInfo(auctionsManager.getRegisteredAuctions(user)).build();
+                    .addAllInfo(registrationManager.getRegisteredAuctions(user)).build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
             logger.info("User "+user+" gets all his registered auctions");
