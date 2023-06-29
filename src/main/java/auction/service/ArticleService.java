@@ -302,4 +302,37 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
         }
     }//getClosedAuctions
 
+    @Override
+    public void buyNow(BuyNowRequest request, StreamObserver<BuyNowResponse> responseObserver ){
+        int auctionId = request.getAuctionId();
+        String user = request.getUser();
+
+        logger.info("got a get-buy-now-request from user: "+user+" for auction "+1);
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            BuyNowResponse response = BuyNowResponse.newBuilder()
+                    .setUpshot(auctionsManager.buyNow(auctionId,user)).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("User "+user+" buy now auction "+auctionId);
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//buyNow
 }//ArticleService

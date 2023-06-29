@@ -48,6 +48,15 @@ message MakeOfferResponse{
   bool upshot = 1;
 }
 
+message BuyNowRequest{
+  int32 auctionId = 1;
+  string user = 2;
+}
+
+message BuyNowResponse{
+  bool upshot = 1;
+}
+
 service ArticleService {
   rpc CreateArticle(CreateArticleRequest) returns (CreateArticleResponse) {};
 
@@ -64,4 +73,6 @@ service ArticleService {
   rpc MakeOffer(MakeOfferRequest) returns (MakeOfferResponse) {};
 
   rpc GetClosedAuctions(GetClosedAuctionsRequest) returns (GetClosedAuctionsResponse) {};
+
+  rpc BuyNow(BuyNowRequest) returns (BuyNowResponse) {};
 }

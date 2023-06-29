@@ -204,4 +204,17 @@ public class ArticleClient
             return null;
         }
     }//getUserActiveAuctions
+
+    public boolean buyNow(int auctionId){
+        BuyNowRequest request = BuyNowRequest.newBuilder().setUser(username).setAuctionId(auctionId).build();
+        BuyNowResponse response = BuyNowResponse.getDefaultInstance();
+
+        try{
+            response = blockingStub.withDeadlineAfter(5,TimeUnit.SECONDS).buyNow(request);
+            return response.getUpshot();
+        }catch( Exception e ){
+            logger.log(Level.SEVERE, "request failed: " + e.getMessage());
+            return false;
+        }
+    }//getUserActiveAuctions
 }//ArticleClient

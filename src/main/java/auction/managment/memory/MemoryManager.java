@@ -25,6 +25,8 @@ public class MemoryManager
     private ConcurrentMap<String, LinkedList<Integer>> userExpiredArticles;    //user,articleID
     private ConcurrentMap<String, LinkedList<Integer>> userNewArticles;        //user,articleID
 
+    private ConcurrentMap<Integer,ClosedAuction> closedAuctions; //articleId,closedAuction
+
     private ConcurrentMap<Integer, ArticleInfo> articles;
     private ConcurrentMap<Integer,ArticleInfo> newArticles;
 
@@ -37,6 +39,7 @@ public class MemoryManager
         userNewArticles = new ConcurrentHashMap<>();
         articles = new ConcurrentHashMap<>();
         newArticles = new ConcurrentHashMap<>();
+        loadClosedAuctions();
         loadArticles();
     }
 
@@ -73,9 +76,13 @@ public class MemoryManager
         return memoryImpl.loadAllRegistrations();
     }//loadRegisteredAuctions
 
-    public Collection<ClosedAuction> loadClosedAuctions(){
-        return memoryImpl.loadAllClosedAuctions();
+    public void loadClosedAuctions(){
+        closedAuctions = new ConcurrentHashMap<>();
+        for( ClosedAuction closedAuction : memoryImpl.loadAllClosedAuctions())
+            closedAuctions.put(closedAuction.getId(),closedAuction);
     }//loadClosedAuctions
+
+
 
     /**
      * Saves the article previously uploaded by the user {@user user} with {@info info}
@@ -89,13 +96,14 @@ public class MemoryManager
 
         articles.put(info.getId(),info);
 
-        if(DateChecker.isExpired(info)){
+        if(DateChecker.isExpired(info) || closedAuctions.containsKey(info.getId())){
             if( !userExpiredArticles.containsKey(user) ){
                 LinkedList<Integer> temp =
                         new LinkedList<>();
                 temp.add(info.getId());
                 userExpiredArticles.put(user, temp);
             }
+            else userExpiredArticles.get(user).add(info.getId()); //Watch out
         }
         else{
             if( !userActiveArticles.containsKey(user) ) {
@@ -171,6 +179,7 @@ public class MemoryManager
      */
     public synchronized void saveClosedAuction(ClosedAuction auction){
         memoryImpl.saveClosedAuction(auction);
+        closedAuctions.put(auction.getId(),auction);
         System.out.println("Salvata in memoria secondaria la seguente asta chiusa:\n"+auction);
     }//saveClosedAuction
 
@@ -242,6 +251,15 @@ public class MemoryManager
 
         return ret;
     }//getArticles
+
+    public boolean isAuctionClosed(int auctionId){
+        return closedAuctions.containsKey(auctionId);
+    }//isAuctionClosed
+
+    public ClosedAuction getClosedAuctionInfo(int auctionId){
+        if( !isAuctionClosed(auctionId) ) return null;
+        return closedAuctions.get(auctionId);
+    }//getClosedAuctionInfo
 
     /**
      * Returns the article with specified id.

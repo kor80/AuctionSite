@@ -263,6 +263,37 @@ public final class ArticleServiceGrpc {
     return getGetClosedAuctionsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<auction.managment.BuyNowRequest,
+      auction.managment.BuyNowResponse> getBuyNowMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "BuyNow",
+      requestType = auction.managment.BuyNowRequest.class,
+      responseType = auction.managment.BuyNowResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.managment.BuyNowRequest,
+      auction.managment.BuyNowResponse> getBuyNowMethod() {
+    io.grpc.MethodDescriptor<auction.managment.BuyNowRequest, auction.managment.BuyNowResponse> getBuyNowMethod;
+    if ((getBuyNowMethod = ArticleServiceGrpc.getBuyNowMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getBuyNowMethod = ArticleServiceGrpc.getBuyNowMethod) == null) {
+          ArticleServiceGrpc.getBuyNowMethod = getBuyNowMethod =
+              io.grpc.MethodDescriptor.<auction.managment.BuyNowRequest, auction.managment.BuyNowResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "BuyNow"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.BuyNowRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.BuyNowResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("BuyNow"))
+              .build();
+        }
+      }
+    }
+    return getBuyNowMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -366,6 +397,13 @@ public final class ArticleServiceGrpc {
         io.grpc.stub.StreamObserver<auction.managment.GetClosedAuctionsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetClosedAuctionsMethod(), responseObserver);
     }
+
+    /**
+     */
+    default void buyNow(auction.managment.BuyNowRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.BuyNowResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getBuyNowMethod(), responseObserver);
+    }
   }
 
   /**
@@ -458,6 +496,14 @@ public final class ArticleServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetClosedAuctionsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void buyNow(auction.managment.BuyNowRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.BuyNowResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getBuyNowMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -530,6 +576,13 @@ public final class ArticleServiceGrpc {
     public auction.managment.GetClosedAuctionsResponse getClosedAuctions(auction.managment.GetClosedAuctionsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetClosedAuctionsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public auction.managment.BuyNowResponse buyNow(auction.managment.BuyNowRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getBuyNowMethod(), getCallOptions(), request);
     }
   }
 
@@ -612,6 +665,14 @@ public final class ArticleServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetClosedAuctionsMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.managment.BuyNowResponse> buyNow(
+        auction.managment.BuyNowRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getBuyNowMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ARTICLE = 0;
@@ -622,6 +683,7 @@ public final class ArticleServiceGrpc {
   private static final int METHODID_GET_REGISTERED_AUCTIONS = 5;
   private static final int METHODID_MAKE_OFFER = 6;
   private static final int METHODID_GET_CLOSED_AUCTIONS = 7;
+  private static final int METHODID_BUY_NOW = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -671,6 +733,10 @@ public final class ArticleServiceGrpc {
         case METHODID_GET_CLOSED_AUCTIONS:
           serviceImpl.getClosedAuctions((auction.managment.GetClosedAuctionsRequest) request,
               (io.grpc.stub.StreamObserver<auction.managment.GetClosedAuctionsResponse>) responseObserver);
+          break;
+        case METHODID_BUY_NOW:
+          serviceImpl.buyNow((auction.managment.BuyNowRequest) request,
+              (io.grpc.stub.StreamObserver<auction.managment.BuyNowResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -746,6 +812,13 @@ public final class ArticleServiceGrpc {
               auction.managment.GetClosedAuctionsRequest,
               auction.managment.GetClosedAuctionsResponse>(
                 service, METHODID_GET_CLOSED_AUCTIONS)))
+        .addMethod(
+          getBuyNowMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.managment.BuyNowRequest,
+              auction.managment.BuyNowResponse>(
+                service, METHODID_BUY_NOW)))
         .build();
   }
 
@@ -802,6 +875,7 @@ public final class ArticleServiceGrpc {
               .addMethod(getGetRegisteredAuctionsMethod())
               .addMethod(getMakeOfferMethod())
               .addMethod(getGetClosedAuctionsMethod())
+              .addMethod(getBuyNowMethod())
               .build();
         }
       }
