@@ -1,4 +1,4 @@
-package auction.managment.builder.writer;
+package auction.managment.memory.builder.writer;
 
 import auction.managment.ArticleType;
 import auction.managment.Date;

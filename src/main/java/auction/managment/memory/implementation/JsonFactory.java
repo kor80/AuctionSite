@@ -1,4 +1,4 @@
-package auction.managment.implementation;
+package auction.managment.memory.implementation;
 
 public class JsonFactory implements MemoryImplFactory {
     @Override

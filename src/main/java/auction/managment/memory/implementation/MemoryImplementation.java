@@ -1,4 +1,4 @@
-package auction.managment.implementation;
+package auction.managment.memory.implementation;
 
 import auction.managment.Article;
 import auction.managment.auctions.ClosedAuction;

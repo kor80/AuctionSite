@@ -1,10 +1,10 @@
-package auction.managment.implementation;
+package auction.managment.memory.implementation;
 
 import auction.managment.Article;
 import auction.managment.auctions.ClosedAuction;
 import auction.managment.auctions.RegistrationInfo;
-import auction.managment.builder.reader.*;
-import auction.managment.builder.writer.*;
+import auction.managment.memory.builder.reader.*;
+import auction.managment.memory.builder.writer.*;
 
 import java.util.Collection;
 

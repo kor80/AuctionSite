@@ -1,10 +1,12 @@
-package auction.managment;
+package auction.managment.memory;
 
+import auction.managment.Article;
+import auction.managment.ArticleInfo;
 import auction.managment.auctions.ClosedAuction;
 import auction.managment.auctions.RegistrationInfo;
-import auction.managment.implementation.JsonFactory;
-import auction.managment.implementation.MemoryImplFactory;
-import auction.managment.implementation.MemoryImplementation;
+import auction.managment.memory.implementation.JsonFactory;
+import auction.managment.memory.implementation.MemoryImplFactory;
+import auction.managment.memory.implementation.MemoryImplementation;
 import auction.utils.DateChecker;
 
 import java.util.Collection;
@@ -23,7 +25,7 @@ public class MemoryManager
     private ConcurrentMap<String, LinkedList<Integer>> userExpiredArticles;    //user,articleID
     private ConcurrentMap<String, LinkedList<Integer>> userNewArticles;        //user,articleID
 
-    private ConcurrentMap<Integer,ArticleInfo> articles;
+    private ConcurrentMap<Integer, ArticleInfo> articles;
     private ConcurrentMap<Integer,ArticleInfo> newArticles;
 
     private int lastArticleID=0;

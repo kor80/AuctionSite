@@ -1,4 +1,4 @@
-package auction.managment.builder.reader;
+package auction.managment.memory.builder.reader;
 
 import auction.managment.Article;
 

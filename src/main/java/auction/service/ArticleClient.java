@@ -185,11 +185,23 @@ public class ArticleClient
 
         try{
             response = blockingStub.withDeadlineAfter(5,TimeUnit.SECONDS).makeOffer(request);
-            System.out.println(username+"'s registered auctions:");
             return response.getUpshot();
         }catch( Exception e ){
             logger.log(Level.SEVERE, "request failed: " + e.getMessage());
             return false;
         }
     }//makeOffer
+
+    public Collection<AuctionInfo> getClosedAuctions(){
+        GetClosedAuctionsRequest request = GetClosedAuctionsRequest.newBuilder().setUser(username).build();
+        GetClosedAuctionsResponse response = GetClosedAuctionsResponse.getDefaultInstance();
+
+        try{
+            response = blockingStub.withDeadlineAfter(5,TimeUnit.SECONDS).getClosedAuctions(request);
+            return response.getInfoList();
+        }catch( Exception e ){
+            logger.log(Level.SEVERE, "request failed: " + e.getMessage());
+            return null;
+        }
+    }//getUserActiveAuctions
 }//ArticleClient

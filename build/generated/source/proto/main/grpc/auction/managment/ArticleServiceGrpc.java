@@ -3,33 +3,6 @@ package auction.managment;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
- * <pre>
- *message SearchLaptopRequest { Filter filter = 1; }
- *message SearchLaptopResponse { Laptop laptop = 1; }
- *message UploadImageRequest {
- *oneof data {
- *ImageInfo info = 1;
- *bytes chunk_data = 2;
- *};
- *}
- *message ImageInfo {
- *string laptop_id = 1;
- *string image_type = 2;
- *}
- *message UploadImageResponse {
- *string id = 1;
- *uint32 size = 2;
- *}
- *message RateLaptopRequest {
- *string laptop_id = 1;
- *double score = 2;
- *}
- *message RateLaptopResponse {
- *string laptop_id = 1;
- *uint32 rated_count = 2;
- *double average_score = 3;
- *}
- * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.55.1)",
@@ -259,6 +232,37 @@ public final class ArticleServiceGrpc {
     return getMakeOfferMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<auction.managment.GetClosedAuctionsRequest,
+      auction.managment.GetClosedAuctionsResponse> getGetClosedAuctionsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetClosedAuctions",
+      requestType = auction.managment.GetClosedAuctionsRequest.class,
+      responseType = auction.managment.GetClosedAuctionsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.managment.GetClosedAuctionsRequest,
+      auction.managment.GetClosedAuctionsResponse> getGetClosedAuctionsMethod() {
+    io.grpc.MethodDescriptor<auction.managment.GetClosedAuctionsRequest, auction.managment.GetClosedAuctionsResponse> getGetClosedAuctionsMethod;
+    if ((getGetClosedAuctionsMethod = ArticleServiceGrpc.getGetClosedAuctionsMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getGetClosedAuctionsMethod = ArticleServiceGrpc.getGetClosedAuctionsMethod) == null) {
+          ArticleServiceGrpc.getGetClosedAuctionsMethod = getGetClosedAuctionsMethod =
+              io.grpc.MethodDescriptor.<auction.managment.GetClosedAuctionsRequest, auction.managment.GetClosedAuctionsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetClosedAuctions"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.GetClosedAuctionsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.managment.GetClosedAuctionsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("GetClosedAuctions"))
+              .build();
+        }
+      }
+    }
+    return getGetClosedAuctionsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -304,33 +308,6 @@ public final class ArticleServiceGrpc {
   }
 
   /**
-   * <pre>
-   *message SearchLaptopRequest { Filter filter = 1; }
-   *message SearchLaptopResponse { Laptop laptop = 1; }
-   *message UploadImageRequest {
-   *oneof data {
-   *ImageInfo info = 1;
-   *bytes chunk_data = 2;
-   *};
-   *}
-   *message ImageInfo {
-   *string laptop_id = 1;
-   *string image_type = 2;
-   *}
-   *message UploadImageResponse {
-   *string id = 1;
-   *uint32 size = 2;
-   *}
-   *message RateLaptopRequest {
-   *string laptop_id = 1;
-   *double score = 2;
-   *}
-   *message RateLaptopResponse {
-   *string laptop_id = 1;
-   *uint32 rated_count = 2;
-   *double average_score = 3;
-   *}
-   * </pre>
    */
   public interface AsyncService {
 
@@ -382,37 +359,17 @@ public final class ArticleServiceGrpc {
         io.grpc.stub.StreamObserver<auction.managment.MakeOfferResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getMakeOfferMethod(), responseObserver);
     }
+
+    /**
+     */
+    default void getClosedAuctions(auction.managment.GetClosedAuctionsRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.GetClosedAuctionsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetClosedAuctionsMethod(), responseObserver);
+    }
   }
 
   /**
    * Base class for the server implementation of the service ArticleService.
-   * <pre>
-   *message SearchLaptopRequest { Filter filter = 1; }
-   *message SearchLaptopResponse { Laptop laptop = 1; }
-   *message UploadImageRequest {
-   *oneof data {
-   *ImageInfo info = 1;
-   *bytes chunk_data = 2;
-   *};
-   *}
-   *message ImageInfo {
-   *string laptop_id = 1;
-   *string image_type = 2;
-   *}
-   *message UploadImageResponse {
-   *string id = 1;
-   *uint32 size = 2;
-   *}
-   *message RateLaptopRequest {
-   *string laptop_id = 1;
-   *double score = 2;
-   *}
-   *message RateLaptopResponse {
-   *string laptop_id = 1;
-   *uint32 rated_count = 2;
-   *double average_score = 3;
-   *}
-   * </pre>
    */
   public static abstract class ArticleServiceImplBase
       implements io.grpc.BindableService, AsyncService {
@@ -424,33 +381,6 @@ public final class ArticleServiceGrpc {
 
   /**
    * A stub to allow clients to do asynchronous rpc calls to service ArticleService.
-   * <pre>
-   *message SearchLaptopRequest { Filter filter = 1; }
-   *message SearchLaptopResponse { Laptop laptop = 1; }
-   *message UploadImageRequest {
-   *oneof data {
-   *ImageInfo info = 1;
-   *bytes chunk_data = 2;
-   *};
-   *}
-   *message ImageInfo {
-   *string laptop_id = 1;
-   *string image_type = 2;
-   *}
-   *message UploadImageResponse {
-   *string id = 1;
-   *uint32 size = 2;
-   *}
-   *message RateLaptopRequest {
-   *string laptop_id = 1;
-   *double score = 2;
-   *}
-   *message RateLaptopResponse {
-   *string laptop_id = 1;
-   *uint32 rated_count = 2;
-   *double average_score = 3;
-   *}
-   * </pre>
    */
   public static final class ArticleServiceStub
       extends io.grpc.stub.AbstractAsyncStub<ArticleServiceStub> {
@@ -520,37 +450,18 @@ public final class ArticleServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getMakeOfferMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getClosedAuctions(auction.managment.GetClosedAuctionsRequest request,
+        io.grpc.stub.StreamObserver<auction.managment.GetClosedAuctionsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetClosedAuctionsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service ArticleService.
-   * <pre>
-   *message SearchLaptopRequest { Filter filter = 1; }
-   *message SearchLaptopResponse { Laptop laptop = 1; }
-   *message UploadImageRequest {
-   *oneof data {
-   *ImageInfo info = 1;
-   *bytes chunk_data = 2;
-   *};
-   *}
-   *message ImageInfo {
-   *string laptop_id = 1;
-   *string image_type = 2;
-   *}
-   *message UploadImageResponse {
-   *string id = 1;
-   *uint32 size = 2;
-   *}
-   *message RateLaptopRequest {
-   *string laptop_id = 1;
-   *double score = 2;
-   *}
-   *message RateLaptopResponse {
-   *string laptop_id = 1;
-   *uint32 rated_count = 2;
-   *double average_score = 3;
-   *}
-   * </pre>
    */
   public static final class ArticleServiceBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<ArticleServiceBlockingStub> {
@@ -613,37 +524,17 @@ public final class ArticleServiceGrpc {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getMakeOfferMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public auction.managment.GetClosedAuctionsResponse getClosedAuctions(auction.managment.GetClosedAuctionsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetClosedAuctionsMethod(), getCallOptions(), request);
+    }
   }
 
   /**
    * A stub to allow clients to do ListenableFuture-style rpc calls to service ArticleService.
-   * <pre>
-   *message SearchLaptopRequest { Filter filter = 1; }
-   *message SearchLaptopResponse { Laptop laptop = 1; }
-   *message UploadImageRequest {
-   *oneof data {
-   *ImageInfo info = 1;
-   *bytes chunk_data = 2;
-   *};
-   *}
-   *message ImageInfo {
-   *string laptop_id = 1;
-   *string image_type = 2;
-   *}
-   *message UploadImageResponse {
-   *string id = 1;
-   *uint32 size = 2;
-   *}
-   *message RateLaptopRequest {
-   *string laptop_id = 1;
-   *double score = 2;
-   *}
-   *message RateLaptopResponse {
-   *string laptop_id = 1;
-   *uint32 rated_count = 2;
-   *double average_score = 3;
-   *}
-   * </pre>
    */
   public static final class ArticleServiceFutureStub
       extends io.grpc.stub.AbstractFutureStub<ArticleServiceFutureStub> {
@@ -713,6 +604,14 @@ public final class ArticleServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getMakeOfferMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.managment.GetClosedAuctionsResponse> getClosedAuctions(
+        auction.managment.GetClosedAuctionsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetClosedAuctionsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ARTICLE = 0;
@@ -722,6 +621,7 @@ public final class ArticleServiceGrpc {
   private static final int METHODID_GET_USER_ACTIVE_AUCTIONS = 4;
   private static final int METHODID_GET_REGISTERED_AUCTIONS = 5;
   private static final int METHODID_MAKE_OFFER = 6;
+  private static final int METHODID_GET_CLOSED_AUCTIONS = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -767,6 +667,10 @@ public final class ArticleServiceGrpc {
         case METHODID_MAKE_OFFER:
           serviceImpl.makeOffer((auction.managment.MakeOfferRequest) request,
               (io.grpc.stub.StreamObserver<auction.managment.MakeOfferResponse>) responseObserver);
+          break;
+        case METHODID_GET_CLOSED_AUCTIONS:
+          serviceImpl.getClosedAuctions((auction.managment.GetClosedAuctionsRequest) request,
+              (io.grpc.stub.StreamObserver<auction.managment.GetClosedAuctionsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -835,6 +739,13 @@ public final class ArticleServiceGrpc {
               auction.managment.MakeOfferRequest,
               auction.managment.MakeOfferResponse>(
                 service, METHODID_MAKE_OFFER)))
+        .addMethod(
+          getGetClosedAuctionsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.managment.GetClosedAuctionsRequest,
+              auction.managment.GetClosedAuctionsResponse>(
+                service, METHODID_GET_CLOSED_AUCTIONS)))
         .build();
   }
 
@@ -890,6 +801,7 @@ public final class ArticleServiceGrpc {
               .addMethod(getGetUserActiveAuctionsMethod())
               .addMethod(getGetRegisteredAuctionsMethod())
               .addMethod(getMakeOfferMethod())
+              .addMethod(getGetClosedAuctionsMethod())
               .build();
         }
       }

@@ -1,6 +1,6 @@
 package auction.service;
 
-import auction.managment.MemoryManager;
+import auction.managment.memory.MemoryManager;
 import io.grpc.ServerBuilder;
 import io.grpc.Server;
 import io.grpc.protobuf.services.ProtoReflectionService;

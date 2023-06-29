@@ -3,6 +3,7 @@ package auction.service;
 import auction.managment.*;
 import auction.managment.auctions.AuctionsManager;
 import auction.managment.auctions.RegistrationInfo;
+import auction.managment.memory.MemoryManager;
 import auction.managment.registrations.RegistrationManager;
 import auction.managment.view.ClientRequestsHandler;
 import auction.search.SearchManager;
@@ -267,5 +268,38 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
             return;
         }
     }//makeOffer
+
+    @Override
+    public void getClosedAuctions(GetClosedAuctionsRequest request, StreamObserver<GetClosedAuctionsResponse> responseObserver){
+        String user = request.getUser();
+
+        logger.info("got a get-closed-auctions-request from user: "+user);
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            GetClosedAuctionsResponse response = GetClosedAuctionsResponse.newBuilder()
+                    .addAllInfo(clientRequestsHandler.getClosedAuctions(user)).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("User "+user+" gets the closed auctions");
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//getClosedAuctions
 
 }//ArticleService
