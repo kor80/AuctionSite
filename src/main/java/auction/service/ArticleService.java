@@ -5,7 +5,7 @@ import auction.managment.auctions.AuctionsManager;
 import auction.managment.auctions.RegistrationInfo;
 import auction.managment.memory.MemoryManager;
 import auction.managment.registrations.RegistrationManager;
-import auction.managment.view.ClientRequestsHandler;
+import auction.managment.ClientRequestsHandler;
 import auction.search.SearchManager;
 import io.grpc.Context;
 import io.grpc.Status;

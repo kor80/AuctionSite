@@ -3,7 +3,7 @@ package auction.service;
 import auction.managment.*;
 import auction.managment.auctions.AuctionInfo;
 import auction.managment.auctions.RegistrationInfo;
-import auction.managment.controller.ClientController;
+import auction.command.controller.ClientController;
 import auction.search.SearchInfo;
 import io.grpc.*;
 import io.grpc.protobuf.services.ProtoReflectionService;
