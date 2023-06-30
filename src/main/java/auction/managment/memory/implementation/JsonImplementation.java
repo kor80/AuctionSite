@@ -1,7 +1,7 @@
 package auction.managment.memory.implementation;
 
 import auction.managment.Article;
-import auction.managment.auctions.ClosedAuction;
+import auction.managment.auctions.AuctionInfo;
 import auction.managment.auctions.RegistrationInfo;
 import auction.managment.memory.builder.reader.*;
 import auction.managment.memory.builder.writer.*;
@@ -55,7 +55,7 @@ public class JsonImplementation implements MemoryImplementation
     }//saveRegistrations
 
     @Override
-    public void saveClosedAuction(ClosedAuction auction) {
+    public void saveClosedAuction(AuctionInfo auction) {
         closedAuctionsWriterDirector.save(auction);
     }//saveClosedAuction
 
@@ -70,7 +70,7 @@ public class JsonImplementation implements MemoryImplementation
     }//loadAllRegistrations
 
     @Override
-    public Collection<ClosedAuction> loadAllClosedAuctions() {
+    public Collection<AuctionInfo> loadAllClosedAuctions() {
         return closedAuctionsReaderDirector.buildMemory();
     }//loadAllClosedAuctions
 

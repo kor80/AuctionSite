@@ -124,7 +124,7 @@ public final class ArticleServiceOuterClass {
       "nfo\030\001 \003(\0132\024.auction.ArticleInfo\"&\n\026GetOw" +
       "nedAuctionRequest\022\014\n\004user\030\001 \001(\t\"=\n\027GetOw" +
       "nedAuctionResponse\022\"\n\004info\030\001 \003(\0132\024.aucti" +
-      "on.ArticleInfo\"G\n\034RegisterForTheAuctionR" +
+      "on.AuctionInfo\"G\n\034RegisterForTheAuctionR" +
       "equest\022\'\n\004info\030\001 \001(\0132\031.auction.Registrat" +
       "ionInfo\"/\n\035RegisterForTheAuctionResponse" +
       "\022\016\n\006upshot\030\001 \001(\010\",\n\034GetUserActiveAuction" +

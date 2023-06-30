@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package auction;
+
+option java_package = "auction.managment";
+option java_multiple_files = true;
+
+import "auction_info.proto";
+
+message OfferChangedRequest { AuctionInfo info = 1; }
+
+message OfferChangedResponse { bool upshot = 1; }
+
+service ClientService{
+  rpc OfferChanged(OfferChangedRequest) returns (OfferChangedResponse){};
+}

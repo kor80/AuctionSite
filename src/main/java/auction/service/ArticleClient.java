@@ -3,7 +3,7 @@ package auction.service;
 import auction.managment.*;
 import auction.managment.auctions.AuctionInfo;
 import auction.managment.auctions.RegistrationInfo;
-import auction.command.controller.ClientController;
+import auction.controller.ClientController;
 import auction.search.SearchInfo;
 import io.grpc.*;
 import io.grpc.protobuf.services.ProtoReflectionService;
@@ -113,7 +113,7 @@ public class ArticleClient
         return response.getInfoList();
     }//searchArticle
 
-    public Collection<ArticleInfo> getOwnedAuctions(){
+    public Collection<AuctionInfo> getOwnedAuctions(){
         GetOwnedAuctionRequest request = GetOwnedAuctionRequest.newBuilder().setUser(username).build();
         GetOwnedAuctionResponse response = GetOwnedAuctionResponse.getDefaultInstance();
 

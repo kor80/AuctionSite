@@ -20,7 +20,7 @@ message SearchArticleResponse{ repeated ArticleInfo info = 1; }
 
 message GetOwnedAuctionRequest{ string user = 1; }
 
-message GetOwnedAuctionResponse{ repeated ArticleInfo info = 1; }
+message GetOwnedAuctionResponse{ repeated AuctionInfo info = 1; }
 
 message RegisterForTheAuctionRequest{ RegistrationInfo info = 1; }
 

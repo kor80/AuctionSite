@@ -2,7 +2,7 @@ package auction.managment.memory;
 
 import auction.managment.Article;
 import auction.managment.ArticleInfo;
-import auction.managment.auctions.ClosedAuction;
+import auction.managment.auctions.AuctionInfo;
 import auction.managment.auctions.RegistrationInfo;
 import auction.managment.memory.implementation.JsonFactory;
 import auction.managment.memory.implementation.MemoryImplFactory;
@@ -25,7 +25,7 @@ public class MemoryManager
     private ConcurrentMap<String, LinkedList<Integer>> userExpiredArticles;    //user,articleID
     private ConcurrentMap<String, LinkedList<Integer>> userNewArticles;        //user,articleID
 
-    private ConcurrentMap<Integer,ClosedAuction> closedAuctions; //articleId,closedAuction
+    private ConcurrentMap<Integer,AuctionInfo> closedAuctions; //articleId,closedAuction
 
     private ConcurrentMap<Integer, ArticleInfo> articles;
     private ConcurrentMap<Integer,ArticleInfo> newArticles;
@@ -78,8 +78,13 @@ public class MemoryManager
 
     public void loadClosedAuctions(){
         closedAuctions = new ConcurrentHashMap<>();
-        for( ClosedAuction closedAuction : memoryImpl.loadAllClosedAuctions())
-            closedAuctions.put(closedAuction.getId(),closedAuction);
+        for( AuctionInfo closedAuction : memoryImpl.loadAllClosedAuctions()){
+            int id = closedAuction.getArticleId();
+            AuctionInfo newClosedAuction = closedAuction.toBuilder()
+                    .setIsOpened(false)
+                    .build();
+            closedAuctions.put(id,newClosedAuction);
+        }
     }//loadClosedAuctions
 
 
@@ -175,11 +180,19 @@ public class MemoryManager
      * inside the database chosen by current factory.
      *
      * @param  auction  auction_id, winner and ending_price
-     * @see ClosedAuction
+     * @see AuctionInfo
      */
-    public synchronized void saveClosedAuction(ClosedAuction auction){
+    public synchronized void saveClosedAuction(AuctionInfo auction){
+        int id = auction.getArticleId();
+        AuctionInfo newAuctionInfo = auction;
+        if( articles.containsKey(id) )
+            newAuctionInfo = auction.toBuilder().setArticleName(articles.get(id).getName()).build();
+        else if( newArticles.containsKey(id) )
+            newAuctionInfo = auction.toBuilder().setArticleName(newArticles.get(id).getName()).build();
+
         memoryImpl.saveClosedAuction(auction);
-        closedAuctions.put(auction.getId(),auction);
+        closedAuctions.put(auction.getArticleId(),newAuctionInfo);
+        removeUserArticle(id);
         System.out.println("Salvata in memoria secondaria la seguente asta chiusa:\n"+auction);
     }//saveClosedAuction
 
@@ -242,8 +255,11 @@ public class MemoryManager
                 ret.add(articles.get(id));
 
         if( userExpiredArticles.containsKey(user))
-            for( int id : userExpiredArticles.get(user) )
+            for( int id : userExpiredArticles.get(user) ){
+                System.out.println(articles.get(id));
+                System.out.println(userExpiredArticles.get(user).size());
                 ret.add(articles.get(id));
+            }
 
         if(userNewArticles.containsKey(user))
             for( int id : userNewArticles.get(user) )
@@ -256,8 +272,9 @@ public class MemoryManager
         return closedAuctions.containsKey(auctionId);
     }//isAuctionClosed
 
-    public ClosedAuction getClosedAuctionInfo(int auctionId){
+    public AuctionInfo getClosedAuctionInfo(int auctionId){
         if( !isAuctionClosed(auctionId) ) return null;
+        closedAuctions.put(auctionId,closedAuctions.get(auctionId).toBuilder().setArticleName(articles.get(auctionId).getName()).build());
         return closedAuctions.get(auctionId);
     }//getClosedAuctionInfo
 
@@ -274,4 +291,12 @@ public class MemoryManager
         if( newArticles.containsKey(id) ) return newArticles.get(id);
         return null;
     }//getArticle
+
+    private void removeUserArticle(int id){
+        for(Map.Entry<String,LinkedList<Integer>> entry : userActiveArticles.entrySet() )
+            entry.getValue().remove(Integer.valueOf(id));
+
+        for(Map.Entry<String,LinkedList<Integer>> entry : userNewArticles.entrySet() )
+            entry.getValue().remove(Integer.valueOf(id));
+    }//removeUserArticle
 }

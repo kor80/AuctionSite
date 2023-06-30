@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package auction;
+
+option java_package = "auction.managment.auctions";
+option java_multiple_files = true;
+
+import "article_info.proto";
+
+message AuctionInfo{
+  int32 articleId = 1;
+  double currentOffer = 2;
+  string currentWinner = 3;
+  bool isOpened = 4;
+  string articleName = 5;
+}
+
