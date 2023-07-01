@@ -1,10 +1,10 @@
 package auction.controller;
 
-import auction.managment.ArticleInfo;
-import auction.managment.ArticleType;
-import auction.managment.Date;
-import auction.managment.Time;
-import auction.managment.auctions.AuctionInfo;
+import auction.model.ArticleInfo;
+import auction.model.ArticleType;
+import auction.model.Date;
+import auction.model.Time;
+import auction.model.auctions.AuctionInfo;
 import auction.search.SearchInfo;
 import auction.service.ArticleClient;
 import auction.utils.ConsistencyChecker;
@@ -14,11 +14,12 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ClientController
+public class ClientController extends AbstractController
 {
     private ArticleClient articleClient;
     private final String ip;
     private String username = null;
+    private double balance = 0;
 
     public ClientController() throws IOException {
         ip = "0.0.0.0";
@@ -26,7 +27,6 @@ public class ClientController
 
     public boolean createArticle(ArticleInfo info){
         if( !ConsistencyChecker.isArticleInfoConsistent(info) ) return false;
-        printArticleInfo(info);
         boolean upshot = articleClient.createArticle(info);
         if( upshot ) System.out.println("Article loaded");
         else System.out.println("Something went wrong while trying to load the article");
@@ -41,7 +41,7 @@ public class ClientController
         return articleClient.getOwnedAuctions();
     }//getOwnedAuctions
 
-    public Collection<ArticleInfo> getUserActiveAuctions(){
+    public Collection<AuctionInfo> getUserActiveAuctions(){
         return articleClient.getUserActiveAuctions();
     }//getUserActiveAuctions
 
@@ -57,14 +57,14 @@ public class ClientController
     }//registerToTheAuction
 
     public void updateOffer(AuctionInfo info){
-        System.out.println("Client says: offer for auction  "+info.getArticleId()+" is changed. Now the current winner is "+info.getCurrentWinner()+
-                " and the current offer is "+info.getCurrentOffer());
+        notifyListeners(info);
     }//updateOffer
 
-    public void makeOffer(int auctionId, double amount){
+    public boolean makeOffer(int auctionId, double amount){
         boolean upshot = articleClient.makeOffer(auctionId,amount);
         if( upshot ) System.out.println("The offer was accepted");
         else System.out.println("The offer was refused");
+        return upshot;
     }//makeOffer
 
     public Collection<AuctionInfo> getClosedAuctions(){
@@ -89,7 +89,15 @@ public class ClientController
         return username;
     }//getUsername
 
-    private static void printArticleInfo( ArticleInfo info ){
+    public void addMoney(double amount) {
+        balance += amount;
+    }//setBalance
+
+    public double getBalance() {
+        return balance;
+    }//getBalance
+
+    private static void printArticleInfo(ArticleInfo info ){
         StringBuilder sb = new StringBuilder();
         sb.append(info.getEndingDate().getYear());
         sb.append("/");

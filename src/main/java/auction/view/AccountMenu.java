@@ -1,5 +1,6 @@
 package auction.view;
 
+import auction.command.CommandHandler;
 import auction.controller.ClientController;
 
 import javax.swing.*;
@@ -14,11 +15,14 @@ public class AccountMenu extends JPanel
     private final int COLUMNS = 1;
 
     private ClientController client;
+    private CommandHandler handler;
 
     private JTextField nameField;
+    private JButton submitUserBtn;
 
-    public AccountMenu(ClientController client){
+    public AccountMenu(ClientController client, CommandHandler handler){
         this.client = client;
+        this.handler = handler;
 
         GridLayout gridLayout = new GridLayout(ROWS,COLUMNS);
         gridLayout.setHgap(10);
@@ -26,7 +30,7 @@ public class AccountMenu extends JPanel
 
         JPanel namePanel = new JPanel();
         JLabel nameLabel = new JLabel("Username:");
-        JButton submitUserBtn = new JButton("Conferma");
+        submitUserBtn = new JButton("Conferma");
         nameField = new JTextField(20);
 
         if( client.getUsername() != null ){
@@ -48,6 +52,8 @@ public class AccountMenu extends JPanel
             try {
                 client.setUsername(nameField.getText());
                 JOptionPane.showMessageDialog(null,"Username inserito correttamente","Successo",JOptionPane.PLAIN_MESSAGE);
+                nameField.setEnabled(false);
+                submitUserBtn.setEnabled(false);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

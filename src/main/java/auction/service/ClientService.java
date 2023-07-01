@@ -1,9 +1,9 @@
 package auction.service;
 
-import auction.managment.ClientServiceGrpc;
-import auction.managment.OfferChangedRequest;
-import auction.managment.OfferChangedResponse;
-import auction.managment.auctions.AuctionInfo;
+import auction.model.ClientServiceGrpc;
+import auction.model.OfferChangedRequest;
+import auction.model.OfferChangedResponse;
+import auction.model.auctions.AuctionInfo;
 import io.grpc.Context;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;

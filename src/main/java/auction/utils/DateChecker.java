@@ -1,8 +1,8 @@
 package auction.utils;
 
-import auction.managment.ArticleInfo;
-import auction.managment.Date;
-import auction.managment.Time;
+import auction.model.ArticleInfo;
+import auction.model.Date;
+import auction.model.Time;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ public class DateChecker
     public static boolean isStarted(ArticleInfo article){
         LocalDateTime articleDateTime = LocalDateTime.of(article.getStartingDate().getYear(), article.getStartingDate().getMonth(),
                 article.getStartingDate().getDay(), article.getStartingTime().getHour(), article.getStartingTime().getMinutes());
-        return LocalDateTime.now(Clock.systemDefaultZone()).isAfter(articleDateTime) && !isExpired(article);
+        return LocalDateTime.now(Clock.systemDefaultZone()).isAfter(articleDateTime);
     }//isStarted
 
     public static long getRemainingTimeInSeconds(ArticleInfo article){

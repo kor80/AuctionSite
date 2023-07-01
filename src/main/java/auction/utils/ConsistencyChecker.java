@@ -1,7 +1,9 @@
 package auction.utils;
 
-import auction.managment.ArticleInfo;
+import auction.controller.ClientController;
+import auction.model.ArticleInfo;
 
+import javax.swing.*;
 import java.util.LinkedList;
 
 public class ConsistencyChecker
@@ -36,8 +38,12 @@ public class ConsistencyChecker
         return true;
     }
 
-    public static boolean isNumber(String text){
-        return text.matches("[0-9]+");
-
-    }
+    public static boolean isUserSet(ClientController controller){
+        if( controller.getUsername() == null ){
+            JOptionPane.showMessageDialog(null,
+                    "Devi prima inserire un username nella pagina account.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }//isUserSet
 }//ConsistencyChecker

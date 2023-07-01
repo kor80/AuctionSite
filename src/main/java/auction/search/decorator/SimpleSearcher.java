@@ -1,10 +1,8 @@
 package auction.search.decorator;
 
-import auction.managment.ArticleInfo;
-import auction.managment.memory.MemoryManager;
+import auction.model.ArticleInfo;
+import auction.model.memory.MemoryManager;
 
-import java.time.Clock;
-import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -15,10 +13,7 @@ public class SimpleSearcher implements ArticleSearcher
         MemoryManager memoryManager = MemoryManager.getInstance();
         LinkedList<ArticleInfo> results = memoryManager.getArticles();
 
-        Iterator<ArticleInfo> it = results.iterator();
-        while(it.hasNext() ){
-            ArticleInfo article = it.next();
-        }//while
+        results.removeIf(article -> memoryManager.isAuctionClosed(article.getId()));
 
         return results;
     }//search

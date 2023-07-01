@@ -1,7 +1,7 @@
 package auction.search.decorator;
 
-import auction.managment.ArticleInfo;
-import auction.managment.ArticleType;
+import auction.model.ArticleInfo;
+import auction.model.ArticleType;
 
 import java.util.LinkedList;
 

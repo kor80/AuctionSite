@@ -114,9 +114,9 @@ private static final long serialVersionUID = 0L;
    * <code>.auction.ArticleType type = 4;</code>
    * @return The type.
    */
-  @java.lang.Override public auction.managment.ArticleType getType() {
-    auction.managment.ArticleType result = auction.managment.ArticleType.forNumber(type_);
-    return result == null ? auction.managment.ArticleType.UNRECOGNIZED : result;
+  @java.lang.Override public auction.model.ArticleType getType() {
+    auction.model.ArticleType result = auction.model.ArticleType.forNumber(type_);
+    return result == null ? auction.model.ArticleType.UNRECOGNIZED : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -142,7 +142,7 @@ private static final long serialVersionUID = 0L;
     if (java.lang.Double.doubleToRawLongBits(maxPrice_) != 0) {
       output.writeDouble(3, maxPrice_);
     }
-    if (type_ != auction.managment.ArticleType.UNKNOWN.getNumber()) {
+    if (type_ != auction.model.ArticleType.UNKNOWN.getNumber()) {
       output.writeEnum(4, type_);
     }
     getUnknownFields().writeTo(output);
@@ -165,7 +165,7 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeDoubleSize(3, maxPrice_);
     }
-    if (type_ != auction.managment.ArticleType.UNKNOWN.getNumber()) {
+    if (type_ != auction.model.ArticleType.UNKNOWN.getNumber()) {
       size += com.google.protobuf.CodedOutputStream
         .computeEnumSize(4, type_);
     }
@@ -677,16 +677,16 @@ private static final long serialVersionUID = 0L;
      * @return The type.
      */
     @java.lang.Override
-    public auction.managment.ArticleType getType() {
-      auction.managment.ArticleType result = auction.managment.ArticleType.forNumber(type_);
-      return result == null ? auction.managment.ArticleType.UNRECOGNIZED : result;
+    public auction.model.ArticleType getType() {
+      auction.model.ArticleType result = auction.model.ArticleType.forNumber(type_);
+      return result == null ? auction.model.ArticleType.UNRECOGNIZED : result;
     }
     /**
      * <code>.auction.ArticleType type = 4;</code>
      * @param value The type to set.
      * @return This builder for chaining.
      */
-    public Builder setType(auction.managment.ArticleType value) {
+    public Builder setType(auction.model.ArticleType value) {
       if (value == null) {
         throw new NullPointerException();
       }

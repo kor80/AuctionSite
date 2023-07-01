@@ -1,12 +1,13 @@
 package auction.view;
 
 import auction.command.CommandHandler;
-import auction.managment.ArticleInfo;
-import auction.managment.ArticleType;
-import auction.managment.Date;
-import auction.managment.Time;
+import auction.model.ArticleInfo;
+import auction.model.ArticleType;
+import auction.model.Date;
+import auction.model.Time;
 import auction.controller.ClientController;
 import auction.specificcommand.SaveArticleCommand;
+import auction.utils.ConsistencyChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -153,6 +154,7 @@ public class CreateArticleMenu extends JPanel
     }//CreateArticleMenu
 
     private ArticleInfo buildArticle(){
+        /*
         if( !startingYearSpinner.getValue().toString().matches("[0-9]+")) return null;
         if( !startingMonthSpinner.getValue().toString().matches("[0-9]+")) return null;
         if( !startingDaySpinner.getValue().toString().matches("[0-9]+")) return null;
@@ -164,9 +166,16 @@ public class CreateArticleMenu extends JPanel
         if( !endingDaySpinner.getValue().toString().matches("[0-9]+")) return null;
         if( !endingHourSpinner.getValue().toString().matches("[0-9]+")) return null;
         if( !endingMinuteSpinner.getValue().toString().matches("[0-9]+")) return null;
+         */
 
         if( !startingPriceField.getText().matches("[0-9]+")) return null;
-        if( !buyNowPriceField.getText().matches("[0-9]+")) return null;
+
+        int buyNowPrice = 0;
+        if( !buyNowPriceField.getText().equals("") ){
+            if( !buyNowPriceField.getText().matches("[0-9]+") ) return null;
+            else
+                buyNowPrice = Integer.parseInt(buyNowPriceField.getText());
+        }
 
         return ArticleInfo.newBuilder()
                 .setName(nameField.getText())
@@ -189,7 +198,7 @@ public class CreateArticleMenu extends JPanel
                         .setMinutes(Integer.parseInt(endingMinuteSpinner.getValue().toString()))
                         .build())
                 .setStartingPrice(Integer.parseInt(startingPriceField.getText()))
-                .setBuyNowPrice(Integer.parseInt(buyNowPriceField.getText()))
+                .setBuyNowPrice(buyNowPrice)
                 .setType((ArticleType) typeCombo.getSelectedItem())
                 .setDescription(desctiptionField.getText())
                 .build();
@@ -198,11 +207,7 @@ public class CreateArticleMenu extends JPanel
     private class SaveArticleListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            if( client.getUsername() == null ) {
-                JOptionPane.showMessageDialog(null,
-                        "Devi prima inserire un username nella pagina account.", "Errore", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            if( !ConsistencyChecker.isUserSet(client) ) return;
             boolean upshot = false;
             ArticleInfo info = buildArticle();
             if( info != null )

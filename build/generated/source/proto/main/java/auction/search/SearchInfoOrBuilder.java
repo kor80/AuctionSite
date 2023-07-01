@@ -40,5 +40,5 @@ public interface SearchInfoOrBuilder extends
    * <code>.auction.ArticleType type = 4;</code>
    * @return The type.
    */
-  auction.managment.ArticleType getType();
+  auction.model.ArticleType getType();
 }

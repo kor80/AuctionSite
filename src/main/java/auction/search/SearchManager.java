@@ -1,6 +1,6 @@
 package auction.search;
 
-import auction.managment.ArticleInfo;
+import auction.model.ArticleInfo;
 import auction.search.decorator.*;
 
 import java.util.LinkedList;

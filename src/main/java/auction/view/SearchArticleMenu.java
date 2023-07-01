@@ -2,10 +2,10 @@ package auction.view;
 
 import auction.command.CommandHandler;
 import auction.controller.ClientController;
-import auction.managment.ArticleInfo;
-import auction.managment.ArticleType;
+import auction.model.ArticleInfo;
+import auction.model.ArticleType;
 import auction.search.SearchInfo;
-import auction.utils.GraphicsUtils;
+import auction.utils.ConsistencyChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 
-public class SearchArticleMenu extends JPanel
+public class SearchArticleMenu extends AbstractMenu
 {
 
     private ClientController client;
@@ -110,8 +110,8 @@ public class SearchArticleMenu extends JPanel
         revalidate();
     }//displayItems
 
-    private JPanel createItemView(ArticleInfo item){
-        JPanel itemPanel = GraphicsUtils.createItemView(item);
+    protected JPanel createItemView(ArticleInfo item){
+        JPanel itemPanel = super.createItemView(item);
         JButton registrationButton = new JButton("Registrati");
         registrationButton.addActionListener(new RegistrationButtonListener(item.getId()));
         registrationButton.setBackground(Color.GREEN);
@@ -140,11 +140,7 @@ public class SearchArticleMenu extends JPanel
     {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if( client.getUsername() == null ) {
-                JOptionPane.showMessageDialog(null,
-                        "Devi prima inserire un username nella pagina account.", "Errore", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            if( !ConsistencyChecker.isUserSet(client) ) return;
             SearchInfo searchInfo = buildSearchInfo();
             if( searchInfo==null ){
                 JOptionPane.showMessageDialog(null,

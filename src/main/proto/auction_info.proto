@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auction;
 
-option java_package = "auction.managment.auctions";
+option java_package = "auction.model.auctions";
 option java_multiple_files = true;
 
 import "article_info.proto";
@@ -13,5 +13,6 @@ message AuctionInfo{
   string currentWinner = 3;
   bool isOpened = 4;
   string articleName = 5;
+  int64 remainingTime = 6;
 }
 

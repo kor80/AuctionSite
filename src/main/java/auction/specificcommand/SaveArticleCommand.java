@@ -1,7 +1,7 @@
 package auction.specificcommand;
 
 import auction.command.Command;
-import auction.managment.ArticleInfo;
+import auction.model.ArticleInfo;
 import auction.controller.ClientController;
 
 public class SaveArticleCommand implements Command

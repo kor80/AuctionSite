@@ -13,5 +13,6 @@ message AuctionInfo{
   string currentWinner = 3;
   bool isOpened = 4;
   string articleName = 5;
+  int64 remainingTime = 6;
 }
 

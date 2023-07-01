@@ -1,11 +1,11 @@
 package auction.service;
 
-import auction.managment.*;
-import auction.managment.auctions.AuctionsManager;
-import auction.managment.auctions.RegistrationInfo;
-import auction.managment.memory.MemoryManager;
-import auction.managment.registrations.RegistrationManager;
-import auction.managment.ClientRequestsHandler;
+import auction.model.*;
+import auction.model.auctions.AuctionsManager;
+import auction.model.auctions.RegistrationInfo;
+import auction.model.memory.MemoryManager;
+import auction.model.registrations.RegistrationManager;
+import auction.model.ClientRequestsHandler;
 import auction.search.SearchManager;
 import io.grpc.Context;
 import io.grpc.Status;
@@ -52,7 +52,6 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
         boolean upshot = false;
         try{
             upshot = memoryManager.userLoadArticle(user,info);
-            //memoryManager.saveArticle(user, info);
         }
         catch( Exception e ){
             responseObserver.onError(

@@ -1,8 +1,8 @@
 package auction.service;
 
-import auction.managment.*;
-import auction.managment.auctions.AuctionInfo;
-import auction.managment.auctions.RegistrationInfo;
+import auction.model.*;
+import auction.model.auctions.AuctionInfo;
+import auction.model.auctions.RegistrationInfo;
 import auction.controller.ClientController;
 import auction.search.SearchInfo;
 import io.grpc.*;
@@ -145,7 +145,7 @@ public class ArticleClient
         }
     }//registerToTheAuction
 
-    public Collection<ArticleInfo> getUserActiveAuctions(){
+    public Collection<AuctionInfo> getUserActiveAuctions(){
         GetUserActiveAuctionsRequest request = GetUserActiveAuctionsRequest.newBuilder().setUser(username).build();
         GetUserActiveAuctionsResponse response = GetUserActiveAuctionsResponse.getDefaultInstance();
 

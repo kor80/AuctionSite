@@ -1,9 +1,8 @@
 package auction.search.decorator;
 
-import auction.managment.ArticleInfo;
+import auction.model.ArticleInfo;
 
 import java.util.LinkedList;
-import java.util.Locale;
 
 public class NameSearcher extends SearcherDecorator
 {

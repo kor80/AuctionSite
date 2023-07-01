@@ -1,15 +1,16 @@
 package auction.view;
 
 import auction.controller.ClientController;
-import auction.managment.auctions.AuctionInfo;
-import auction.utils.GraphicsUtils;
+import auction.model.auctions.AuctionInfo;
+import auction.utils.ConsistencyChecker;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Collection;
 
-public class OwnedAuctionsMenu extends JPanel {
+public class OwnedAuctionsMenu extends AbstractMenu {
     public OwnedAuctionsMenu(ClientController client){
+        if( !ConsistencyChecker.isUserSet(client) ) return;
         setLayout(new BorderLayout());
 
         Collection<AuctionInfo> auctions = client.getOwnedAuctions();
@@ -18,7 +19,7 @@ public class OwnedAuctionsMenu extends JPanel {
         auctionsPanel.setLayout(new BoxLayout(auctionsPanel,BoxLayout.Y_AXIS));
 
         for( AuctionInfo auction : auctions ){
-            auctionsPanel.add(GraphicsUtils.createAuctionView(auction));
+            auctionsPanel.add(createAuctionView(auction));
             auctionsPanel.add(new JSeparator());
         }
 

@@ -37,7 +37,7 @@ public final class SearchInfoOuterClass {
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          auction.managment.ArticleInfoOuterClass.getDescriptor(),
+          auction.model.ArticleInfoOuterClass.getDescriptor(),
         });
     internal_static_auction_SearchInfo_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -45,7 +45,7 @@ public final class SearchInfoOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_auction_SearchInfo_descriptor,
         new java.lang.String[] { "Name", "MinPrice", "MaxPrice", "Type", });
-    auction.managment.ArticleInfoOuterClass.getDescriptor();
+    auction.model.ArticleInfoOuterClass.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

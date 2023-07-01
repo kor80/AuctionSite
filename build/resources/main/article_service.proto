@@ -28,7 +28,7 @@ message RegisterForTheAuctionResponse{ bool upshot = 1; }
 
 message GetUserActiveAuctionsRequest{ string user = 1; }
 
-message GetUserActiveAuctionsResponse{ repeated ArticleInfo info = 1; }
+message GetUserActiveAuctionsResponse{ repeated AuctionInfo info = 1; }
 
 message GetRegisteredAuctionsRequest{ string user = 1; }
 
