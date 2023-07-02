@@ -238,6 +238,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
         String user = request.getUser();
         double amount = request.getAmount();
         int auctionID = request.getAuctionId();
+        System.out.println("ok");
 
         logger.info("got a make-offer-request from user: "+user+" for auction "+auctionID+" of amount "+amount);
 
@@ -285,6 +286,7 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
         }
 
         try{
+
             GetClosedAuctionsResponse response = GetClosedAuctionsResponse.newBuilder()
                     .addAllInfo(clientRequestsHandler.getClosedAuctions(user)).build();
             responseObserver.onNext(response);

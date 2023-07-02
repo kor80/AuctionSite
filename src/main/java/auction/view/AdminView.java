@@ -119,6 +119,7 @@ public class AdminView extends JFrame
                 JOptionPane.showMessageDialog(null,"Articolo eliminato","Successo",JOptionPane.PLAIN_MESSAGE);
             else
                 JOptionPane.showMessageDialog(null,"Errore durante l'eliminazione dell'articolo","Errore",JOptionPane.ERROR_MESSAGE);
+            showView();
         }//actionPerformed
     }//RemoveArticleListener
 

@@ -15,7 +15,7 @@ public class NameSearcher extends SearcherDecorator
 
     @Override
     public LinkedList<ArticleInfo> search(){
-        if( name == null ) return super.search();
+        if( name.equals("") ) return super.search();
 
         LinkedList<ArticleInfo> results = new LinkedList<>();
         for( ArticleInfo info : super.search())

@@ -56,7 +56,9 @@ public class Auction extends AbstractAuction
             currentWinner = user;
             currentOffer = buyNowPrice;
             offerLock.release();
+            timeLock.acquire();
             timeOut = 0;
+            timeLock.release();
             return true;
         }catch (InterruptedException e){ offerLock.release(); return false;}
     }//buyNow

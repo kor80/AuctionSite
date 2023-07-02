@@ -59,7 +59,6 @@ public class ClientRequestsHandler
                     .build()
             );
         }
-        System.out.println("Closed: "+results.size());
         return results;
     }//getClosedAuctions
 }//ClientRequestsHandler
