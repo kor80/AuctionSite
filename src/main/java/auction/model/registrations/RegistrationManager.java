@@ -9,6 +9,7 @@ import auction.utils.DateChecker;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class RegistrationManager
@@ -114,4 +115,16 @@ public class RegistrationManager
         return (registeredAuctions.containsKey(user) && registeredAuctions.get(user).contains(auctionId)) ||
                 (newRegisteredAuctions.containsKey(user) && newRegisteredAuctions.get(user).contains(auctionId));
     }//isRegistered
+
+    public synchronized boolean removeRegistration(int id){
+        boolean found = false;
+        for(Map.Entry<String,HashSet<Integer>> registrations : registeredAuctions.entrySet() )
+            found = registrations.getValue().remove(id);
+
+        if( !found)
+            for(Map.Entry<String,HashSet<Integer>> registrations : newRegisteredAuctions.entrySet() )
+                found = registrations.getValue().remove(id);
+
+        return found;
+    }//removeRegistration
 }//RegistrationManager

@@ -294,6 +294,68 @@ public final class ArticleServiceGrpc {
     return getBuyNowMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<auction.model.DeleteArticleRequest,
+      auction.model.DeleteArticleResponse> getDeleteArticleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteArticle",
+      requestType = auction.model.DeleteArticleRequest.class,
+      responseType = auction.model.DeleteArticleResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.model.DeleteArticleRequest,
+      auction.model.DeleteArticleResponse> getDeleteArticleMethod() {
+    io.grpc.MethodDescriptor<auction.model.DeleteArticleRequest, auction.model.DeleteArticleResponse> getDeleteArticleMethod;
+    if ((getDeleteArticleMethod = ArticleServiceGrpc.getDeleteArticleMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getDeleteArticleMethod = ArticleServiceGrpc.getDeleteArticleMethod) == null) {
+          ArticleServiceGrpc.getDeleteArticleMethod = getDeleteArticleMethod =
+              io.grpc.MethodDescriptor.<auction.model.DeleteArticleRequest, auction.model.DeleteArticleResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteArticle"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.model.DeleteArticleRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.model.DeleteArticleResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("DeleteArticle"))
+              .build();
+        }
+      }
+    }
+    return getDeleteArticleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<auction.model.GetArticlesRequest,
+      auction.model.GetArticlesResponse> getGetArticlesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetArticles",
+      requestType = auction.model.GetArticlesRequest.class,
+      responseType = auction.model.GetArticlesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<auction.model.GetArticlesRequest,
+      auction.model.GetArticlesResponse> getGetArticlesMethod() {
+    io.grpc.MethodDescriptor<auction.model.GetArticlesRequest, auction.model.GetArticlesResponse> getGetArticlesMethod;
+    if ((getGetArticlesMethod = ArticleServiceGrpc.getGetArticlesMethod) == null) {
+      synchronized (ArticleServiceGrpc.class) {
+        if ((getGetArticlesMethod = ArticleServiceGrpc.getGetArticlesMethod) == null) {
+          ArticleServiceGrpc.getGetArticlesMethod = getGetArticlesMethod =
+              io.grpc.MethodDescriptor.<auction.model.GetArticlesRequest, auction.model.GetArticlesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetArticles"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.model.GetArticlesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  auction.model.GetArticlesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ArticleServiceMethodDescriptorSupplier("GetArticles"))
+              .build();
+        }
+      }
+    }
+    return getGetArticlesMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -404,6 +466,20 @@ public final class ArticleServiceGrpc {
         io.grpc.stub.StreamObserver<auction.model.BuyNowResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getBuyNowMethod(), responseObserver);
     }
+
+    /**
+     */
+    default void deleteArticle(auction.model.DeleteArticleRequest request,
+        io.grpc.stub.StreamObserver<auction.model.DeleteArticleResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteArticleMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void getArticles(auction.model.GetArticlesRequest request,
+        io.grpc.stub.StreamObserver<auction.model.GetArticlesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetArticlesMethod(), responseObserver);
+    }
   }
 
   /**
@@ -504,6 +580,22 @@ public final class ArticleServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getBuyNowMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void deleteArticle(auction.model.DeleteArticleRequest request,
+        io.grpc.stub.StreamObserver<auction.model.DeleteArticleResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteArticleMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getArticles(auction.model.GetArticlesRequest request,
+        io.grpc.stub.StreamObserver<auction.model.GetArticlesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetArticlesMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -583,6 +675,20 @@ public final class ArticleServiceGrpc {
     public auction.model.BuyNowResponse buyNow(auction.model.BuyNowRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getBuyNowMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public auction.model.DeleteArticleResponse deleteArticle(auction.model.DeleteArticleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteArticleMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public auction.model.GetArticlesResponse getArticles(auction.model.GetArticlesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetArticlesMethod(), getCallOptions(), request);
     }
   }
 
@@ -673,6 +779,22 @@ public final class ArticleServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getBuyNowMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.model.DeleteArticleResponse> deleteArticle(
+        auction.model.DeleteArticleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteArticleMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<auction.model.GetArticlesResponse> getArticles(
+        auction.model.GetArticlesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetArticlesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ARTICLE = 0;
@@ -684,6 +806,8 @@ public final class ArticleServiceGrpc {
   private static final int METHODID_MAKE_OFFER = 6;
   private static final int METHODID_GET_CLOSED_AUCTIONS = 7;
   private static final int METHODID_BUY_NOW = 8;
+  private static final int METHODID_DELETE_ARTICLE = 9;
+  private static final int METHODID_GET_ARTICLES = 10;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -737,6 +861,14 @@ public final class ArticleServiceGrpc {
         case METHODID_BUY_NOW:
           serviceImpl.buyNow((auction.model.BuyNowRequest) request,
               (io.grpc.stub.StreamObserver<auction.model.BuyNowResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ARTICLE:
+          serviceImpl.deleteArticle((auction.model.DeleteArticleRequest) request,
+              (io.grpc.stub.StreamObserver<auction.model.DeleteArticleResponse>) responseObserver);
+          break;
+        case METHODID_GET_ARTICLES:
+          serviceImpl.getArticles((auction.model.GetArticlesRequest) request,
+              (io.grpc.stub.StreamObserver<auction.model.GetArticlesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -819,6 +951,20 @@ public final class ArticleServiceGrpc {
               auction.model.BuyNowRequest,
               auction.model.BuyNowResponse>(
                 service, METHODID_BUY_NOW)))
+        .addMethod(
+          getDeleteArticleMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.model.DeleteArticleRequest,
+              auction.model.DeleteArticleResponse>(
+                service, METHODID_DELETE_ARTICLE)))
+        .addMethod(
+          getGetArticlesMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              auction.model.GetArticlesRequest,
+              auction.model.GetArticlesResponse>(
+                service, METHODID_GET_ARTICLES)))
         .build();
   }
 
@@ -876,6 +1022,8 @@ public final class ArticleServiceGrpc {
               .addMethod(getMakeOfferMethod())
               .addMethod(getGetClosedAuctionsMethod())
               .addMethod(getBuyNowMethod())
+              .addMethod(getDeleteArticleMethod())
+              .addMethod(getGetArticlesMethod())
               .build();
         }
       }

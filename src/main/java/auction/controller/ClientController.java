@@ -19,7 +19,6 @@ public class ClientController extends AbstractController
     private ArticleClient articleClient;
     private final String ip;
     private String username = null;
-    private double balance = 0;
 
     public ClientController() throws IOException {
         ip = "0.0.0.0";
@@ -88,14 +87,6 @@ public class ClientController extends AbstractController
     public String getUsername(){
         return username;
     }//getUsername
-
-    public void addMoney(double amount) {
-        balance += amount;
-    }//setBalance
-
-    public double getBalance() {
-        return balance;
-    }//getBalance
 
     private static void printArticleInfo(ArticleInfo info ){
         StringBuilder sb = new StringBuilder();

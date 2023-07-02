@@ -14,4 +14,6 @@ public interface MemoryImplementation
     Collection<Article> loadAllArticles();
     Collection<RegistrationInfo> loadAllRegistrations();
     Collection<AuctionInfo> loadAllClosedAuctions();
+    void deleteArticle(int id);
+    void deleteRegistration(int id);
 }

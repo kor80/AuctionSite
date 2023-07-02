@@ -8,6 +8,7 @@ import auction.model.auctions.RegistrationInfo;
 import auction.model.memory.implementation.JsonFactory;
 import auction.model.memory.implementation.MemoryImplFactory;
 import auction.model.memory.implementation.MemoryImplementation;
+import auction.model.registrations.RegistrationManager;
 import auction.utils.DateChecker;
 
 import java.util.Collection;
@@ -288,4 +289,23 @@ public class MemoryManager
         if( newArticles.containsKey(id) ) return newArticles.get(id);
         return null;
     }//getArticle
+
+    public boolean removeArticle(int id){
+        if( !AuctionsManager.getInstance().getNotStartedAuctionsIds().contains(id) ) return false;
+
+        for(Map.Entry<String,LinkedList<Integer>> userArticles : userActiveArticles.entrySet() )
+            userArticles.getValue().remove(Integer.valueOf(id));
+
+        for(Map.Entry<String,LinkedList<Integer>> userArticles : userNewArticles.entrySet() )
+            userArticles.getValue().remove(Integer.valueOf(id));
+
+        memoryImpl.deleteArticle(id);
+        articles.remove(id);
+        newArticles.remove(id);
+
+        AuctionsManager.getInstance().removeAuction(id);
+        memoryImpl.deleteRegistration(id);
+        RegistrationManager.getInstance().removeRegistration(id);
+        return true;
+    }//removeArticle
 }

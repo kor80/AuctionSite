@@ -12,7 +12,6 @@ import java.io.*;
 
 public class JsonWriter implements MemoryWriter
 {
-    private JSONParser parser;
     private JSONArray rootObjectsList;
     private JSONObject rootObject;
     private JSONObject info;
@@ -44,7 +43,7 @@ public class JsonWriter implements MemoryWriter
     private void openFile(String path){
         try {
             FileReader fr = new FileReader(path);
-            parser = new JSONParser();
+            JSONParser parser = new JSONParser();
             Object obj = parser.parse(fr);
             rootObjectsList = (JSONArray) obj;
             fr.close();

@@ -334,4 +334,71 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
             return;
         }
     }//buyNow
+
+    @Override
+    public void deleteArticle(DeleteArticleRequest request, StreamObserver<DeleteArticleResponse> responseObserver){
+        int id = request.getAuctionId();
+
+        logger.info("got a delete-article request");
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        boolean upshot = false;
+        try{
+            upshot = memoryManager.removeArticle(id);
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        DeleteArticleResponse response = DeleteArticleResponse.newBuilder().setUpshot(upshot).build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+
+        logger.info("Article "+id+" deleted.");
+    }//createArticle
+
+    @Override
+    public void getArticles(GetArticlesRequest request, StreamObserver<GetArticlesResponse> responseObserver){
+        logger.info("got a get-article request");
+
+        if(Context.current().isCancelled()){
+            logger.info("request is cancelled");
+            responseObserver.onError(
+                    Status.CANCELLED
+                            .withDescription("request is cancelled")
+                            .asRuntimeException()
+            );
+            return;
+        }
+
+        try{
+            GetArticlesResponse response = GetArticlesResponse.newBuilder()
+                    .addAllArticles(memoryManager.getArticles()).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            logger.info("Articles returned to admin");
+        }
+        catch( Exception e ){
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription(e.getMessage())
+                            .asRuntimeException()
+            );
+            return;
+        }
+    }//getArticles
 }//ArticleService

@@ -57,6 +57,14 @@ message BuyNowResponse{
   bool upshot = 1;
 }
 
+message DeleteArticleRequest{ int32 auctionId = 1; }
+
+message DeleteArticleResponse{ bool upshot = 1; }
+
+message GetArticlesRequest{}
+
+message GetArticlesResponse{ repeated ArticleInfo articles = 1; }
+
 service ArticleService {
   rpc CreateArticle(CreateArticleRequest) returns (CreateArticleResponse) {};
 
@@ -75,4 +83,8 @@ service ArticleService {
   rpc GetClosedAuctions(GetClosedAuctionsRequest) returns (GetClosedAuctionsResponse) {};
 
   rpc BuyNow(BuyNowRequest) returns (BuyNowResponse) {};
+
+  rpc DeleteArticle(DeleteArticleRequest) returns (DeleteArticleResponse) {};
+
+  rpc GetArticles(GetArticlesRequest) returns (GetArticlesResponse) {};
 }

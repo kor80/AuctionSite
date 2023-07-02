@@ -123,4 +123,15 @@ public class AuctionsManager
         if( !RegistrationManager.getInstance().isRegistered(user,auctionId) ) return false;
         return activeAuctions.get(auctionId).buyNow(user);
     }//buyNow
+
+    public LinkedList<Integer> getNotStartedAuctionsIds(){
+        LinkedList<Integer> result = new LinkedList<>();
+        for( int id : auctions.keySet() )  result.add(id);
+        return result;
+    }//getNotStartedAuctionsIds
+
+    public boolean removeAuction(int id){
+        Auction value = auctions.remove(id);
+        return value != null;
+    }//removeAuction
 }//AuctionsManager

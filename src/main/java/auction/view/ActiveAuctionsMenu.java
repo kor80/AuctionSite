@@ -4,7 +4,6 @@ import auction.command.CommandHandler;
 import auction.controller.ClientController;
 import auction.model.ArticleInfo;
 import auction.model.auctions.AuctionInfo;
-import auction.model.memory.MemoryManager;
 import auction.specificcommand.GraphicChangeCommand;
 import auction.specificcommand.StartTimerCommand;
 import auction.utils.ConsistencyChecker;
