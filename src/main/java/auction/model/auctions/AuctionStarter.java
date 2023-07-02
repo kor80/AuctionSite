@@ -6,7 +6,7 @@ import auction.utils.DateChecker;
 
 import java.util.concurrent.TimeUnit;
 
-public class AuctionStarter extends Thread
+class AuctionStarter extends Thread
 {
     private AuctionsManager auctionsManager;
     private final int CHECKING_PERIOD = 5; //sec

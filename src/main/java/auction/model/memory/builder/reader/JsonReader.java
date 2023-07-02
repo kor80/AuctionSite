@@ -12,6 +12,14 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * <h1>Json Reader</h1>
+ * This class specializes the instructions
+ * used to read an Article in the Json database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class JsonReader implements MemoryReader
 {
     private LinkedList<Article> ret;

@@ -11,6 +11,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * <h1>Json Array Reader</h1>
+ * This class specializes the instructions
+ * used to read  a Json array in the
+ * Json database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class JsonArrayReader implements ArrayReader
 {
     private JSONArray jArray;

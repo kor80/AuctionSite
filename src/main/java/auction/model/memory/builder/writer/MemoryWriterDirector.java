@@ -3,6 +3,14 @@ package auction.model.memory.builder.writer;
 import auction.model.Article;
 import auction.model.ArticleInfo;
 
+/**
+ * <h1>Memory Writer Director</h1>
+ * This class specifies the right instructions
+ * for writing an article in the database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class MemoryWriterDirector
 {
     MemoryWriter builder;

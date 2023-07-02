@@ -4,6 +4,14 @@ import auction.model.Article;
 
 import java.util.Collection;
 
+/**
+ * <h1>Memory Reader Director</h1>
+ * This class specifies the right instructions
+ * for reading an article from the database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class MemoryReaderDirector
 {
     private MemoryReader builder;

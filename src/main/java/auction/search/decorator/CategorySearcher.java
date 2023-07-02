@@ -5,6 +5,13 @@ import auction.model.ArticleType;
 
 import java.util.LinkedList;
 
+/**
+ * <h1>Category Searcher</h1>
+ * This class filters the results of a previous search by category.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class CategorySearcher extends SearcherDecorator
 {
     private ArticleType category;

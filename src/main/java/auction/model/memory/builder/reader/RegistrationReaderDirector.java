@@ -5,6 +5,14 @@ import auction.model.auctions.RegistrationInfo;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * <h1>Registration Reader Director</h1>
+ * This class specifies the right instructions
+ * for reading a registration from the database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class RegistrationReaderDirector
 {
     private ArrayReader builder;

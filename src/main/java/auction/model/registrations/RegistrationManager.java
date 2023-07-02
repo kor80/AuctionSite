@@ -12,6 +12,15 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * <h1>Registration Manager</h1>
+ * This is a singleton class which has the responsibility to catch and
+ * track the user registrations, adding the listeners (users) to the auction
+ * specified in the requests.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class RegistrationManager
 {
     private static RegistrationManager INSTANCE;
@@ -36,6 +45,9 @@ public class RegistrationManager
 
     /**
      * Subscribes the user to the auction specified in {@info info}.
+     * The auctions mnager is contacted to add the new listener, either if
+     * the auction is started or not.
+     * The registration is saved in the database.
      *
      * @param  info  auction_id, user, user_IP and user_port
      * @see RegistrationInfo
@@ -65,14 +77,13 @@ public class RegistrationManager
         else
             System.out.println("Something went wrong with the registration of "+user+" to auction "+auctionId);
 
-        //ONLY FOR TESTING!!
         memoryManager.saveRegistration(info);
         return true;
     }//registerAuction
 
     /**
      * Loads in main memory all the subscriptions,
-     * activating the subject (listener).
+     * activating the subject, which saves the listeners again.
      *
      * @param  registrations a collection of Registration object
      * @see RegistrationInfo
@@ -98,6 +109,13 @@ public class RegistrationManager
         }//for
     }//readRegisteredAuctions
 
+    /**
+     * Returns the article info of the auctions to which the user is registered.
+     *
+     * @param user the user who asks for his registrations.
+     * @return A LinkedList containing the ArticleInfo of the user's registrations.
+     * @see ArticleInfo
+     */
     public synchronized LinkedList<ArticleInfo> getRegisteredAuctions(String user){
         LinkedList<ArticleInfo> result = new LinkedList<>();
         if( registeredAuctions.containsKey(user) )
@@ -111,11 +129,25 @@ public class RegistrationManager
         return result;
     }//getRegisteredAuctions
 
+    /**
+     * Determines if the user {@param user} is registered to the auction with
+     * id {@param id}.
+     *
+     * @param user the user who asks for his registration.
+     * @param auctionId the id of the auction to which the user is supposed to be registered.
+     * @return true if the user is registered to the auction, false otherwise.
+     */
     public synchronized boolean isRegistered(String user, int auctionId){
         return (registeredAuctions.containsKey(user) && registeredAuctions.get(user).contains(auctionId)) ||
                 (newRegisteredAuctions.containsKey(user) && newRegisteredAuctions.get(user).contains(auctionId));
     }//isRegistered
 
+    /**
+     * Removes all the registrations for the auction with id {@param id}.
+     *
+     * @param id the id of the auctions to remove.
+     * @return true if the registrations are removed, false otherwise.
+     */
     public synchronized boolean removeRegistration(int id){
         boolean found = false;
         for(Map.Entry<String,HashSet<Integer>> registrations : registeredAuctions.entrySet() )

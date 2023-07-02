@@ -7,6 +7,17 @@ import auction.view.observer.CountDownThread;
 
 import javax.swing.*;
 
+/**
+ * <h1>Start Timer Command</h1>
+ * This class is a concretization of the command interface.
+ * It subscribes an observer to the auctions changes, starting
+ * a timeout thread which is responsible to update the auction time
+ * each second and to restart from a certain amount of time according
+ * to the auction updates.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class StartTimerCommand implements Command
 {
     private ClientController client;

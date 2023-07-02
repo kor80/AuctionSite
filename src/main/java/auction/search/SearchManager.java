@@ -5,6 +5,14 @@ import auction.search.decorator.*;
 
 import java.util.LinkedList;
 
+/**
+ * <h1>Search Manager</h1>
+ * This is a singleton class which has the only responsibility to
+ * search articles in the server memory.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class SearchManager
 {
     public static SearchManager INSTANCE;
@@ -17,6 +25,15 @@ public class SearchManager
         return INSTANCE;
     }//getInstance
 
+    /**
+     * Returns all the articles that meet the search criteria.
+     *
+     * @param  info  A SearchInfo object containing the search criteria.
+     * @return A LinkedList containing the ArticleInfo of the articles
+     * that meet the search criteria.
+     * @see ArticleInfo
+     * @see SearchInfo
+     */
     public LinkedList<ArticleInfo> search(SearchInfo info){
         SimpleSearcher searcher = new SimpleSearcher();
         NameSearcher nameSearcher = new NameSearcher(searcher, info.getName());

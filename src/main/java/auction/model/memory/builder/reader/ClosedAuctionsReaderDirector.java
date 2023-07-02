@@ -5,6 +5,14 @@ import auction.model.auctions.AuctionInfo;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * <h1>Closed Auctions Reader Director</h1>
+ * This class specifies the right instructions
+ * for reading a closed auction from the database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class ClosedAuctionsReaderDirector
 {
     private ArrayReader builder;

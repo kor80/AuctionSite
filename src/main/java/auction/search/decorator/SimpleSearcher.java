@@ -6,6 +6,14 @@ import auction.model.memory.MemoryManager;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * <h1>Simple Searcher</h1>
+ * This class implements the naive article search, returning all
+ * the articles saved in the server.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class SimpleSearcher implements ArticleSearcher
 {
     @Override

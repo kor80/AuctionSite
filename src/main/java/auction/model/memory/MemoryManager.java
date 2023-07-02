@@ -16,6 +16,18 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.*;
 
+/**
+ * <h1>Memory Manager</h1>
+ * This is a singleton class which has the only responsibility to
+ * make database and main memory communicate, loading the persistent articles,
+ * registrations and closed auctions and saving all the new info loaded in the current
+ * session.
+ * This class is only the abstraction, which is completely independent from the
+ * "kind" of database used. The kind of database can be set using the corresponding factory.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class MemoryManager
 {
     private static MemoryManager memoryManager;
@@ -64,6 +76,7 @@ public class MemoryManager
 
     /**
      * Loads articles in main memory, supporting articles persistence
+     * @see Article
      */
     private void loadArticles(){
         LinkedList<Article> articles = new LinkedList<>(memoryImpl.loadAllArticles());
@@ -74,10 +87,18 @@ public class MemoryManager
         }
     }//loadArticles
 
+    /**
+     * Loads registrations in main memory, supporting registration persistence
+     * @see RegistrationInfo
+     */
     public Collection<RegistrationInfo> loadRegisteredAuctions(){
         return memoryImpl.loadAllRegistrations();
     }//loadRegisteredAuctions
 
+    /**
+     * Loads closed auctions in main memory, useful to take decisions.
+     * @see AuctionInfo
+     */
     public void loadClosedAuctions(){
         closedAuctions = new ConcurrentHashMap<>();
         for( AuctionInfo closedAuction : memoryImpl.loadAllClosedAuctions()){
@@ -208,7 +229,6 @@ public class MemoryManager
         }//for
     }//saveAll
 
-    //TEST
     private void printArticle(String user, ArticleInfo info){
         StringBuilder sb = new StringBuilder();
         sb.append(info.getStartingDate().getYear());
@@ -266,10 +286,21 @@ public class MemoryManager
         return ret;
     }//getArticles
 
+    /**
+     * @param auctionId the id of the auction which is supposed to be closed.
+     * @return true if the auction with id {@param auctionId} is closed, false otherwise.
+     */
     public boolean isAuctionClosed(int auctionId){
         return closedAuctions.containsKey(auctionId);
     }//isAuctionClosed
 
+    /**
+     * Returns the info of the closed auction with id {@param auctionId} if it is closed.
+     *
+     * @param auctionId the id of the closed auction.
+     * @return The AuctionInfo if the auction is closed, null otherwise.
+     * @see AuctionInfo
+     */
     public AuctionInfo getClosedAuctionInfo(int auctionId){
         if( !isAuctionClosed(auctionId) ) return null;
         closedAuctions.put(auctionId,closedAuctions.get(auctionId).toBuilder().setArticleName(getArticle(auctionId).getName()).build());
@@ -278,7 +309,7 @@ public class MemoryManager
 
     /**
      * Returns the article with specified id.
-     * The search is also carried out in expired articles .
+     * The search is also carried out in expired articles.
      *
      * @param  id  the article id.
      * @see ArticleInfo
@@ -290,6 +321,15 @@ public class MemoryManager
         return null;
     }//getArticle
 
+    /**
+     * Removes the article with id {@param id} from the main memory and
+     * from the database.
+     * Also removes all the registrations to that article and the auction
+     * not started yet with that id.
+     *
+     * @param id the article id.
+     * @return true if the article and registrations were removed correctly, false otherwise.
+     */
     public boolean removeArticle(int id){
         if( !AuctionsManager.getInstance().getNotStartedAuctionsIds().contains(id) ) return false;
 

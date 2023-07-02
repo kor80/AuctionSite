@@ -6,6 +6,16 @@ import auction.view.observer.LabelUpdater;
 
 import javax.swing.*;
 
+/**
+ * <h1>Graphic Change Command</h1>
+ * This class is a concretization of the command interface.
+ * It subscribes an observer to the auctions changes, starting
+ * a graphic updater thread which is responsible to listen to the
+ * updates and update the labels in real time.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class GraphicChangeCommand implements Command
 {
     ClientController client;

@@ -10,6 +10,15 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 
+/**
+ * <h1>Json Writer</h1>
+ * This class specializes the instructions
+ * used to write an Object in an Array
+ * and put it in the Json database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class JsonWriter implements MemoryWriter
 {
     private JSONArray rootObjectsList;

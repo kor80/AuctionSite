@@ -2,6 +2,14 @@ package auction.model.memory.builder.writer;
 
 import auction.model.auctions.RegistrationInfo;
 
+/**
+ * <h1>Registrations Writer Director</h1>
+ * This class specifies the right instructions
+ * for writing registration in the database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
 public class RegistrationsWriterDirector
 {
     MemoryWriter builder;

@@ -6,7 +6,7 @@ import auction.utils.DateChecker;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Auction extends AbstractAuction
+class Auction extends AbstractAuction
 {
     private double buyNowPrice;
     private Semaphore offerLock;

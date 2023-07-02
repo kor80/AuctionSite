@@ -9,13 +9,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public abstract class AbstractMemoryDeleter implements MemoryDeleter
+/**
+ * <h1>Abstract JSON Memory Deleter</h1>
+ * This class specifies the opening and closing
+ * operation when deleting an object from the JSON database.
+ *
+ * @author Cosimo Russo
+ * @version 1.0
+ */
+public abstract class AbstractJSONMemoryDeleter implements MemoryDeleter
 {
     protected JSONArray rootObjectsList;
 
     private final String path;
 
-    protected AbstractMemoryDeleter(String path){this.path = path;}
+    protected AbstractJSONMemoryDeleter(String path){this.path = path;}
 
     @Override
     public void openMemory() {
@@ -44,4 +52,4 @@ public abstract class AbstractMemoryDeleter implements MemoryDeleter
             e.printStackTrace();
         }
     }//closeMemory
-}//AbstractMemoryDeleter
+}//AbstractJSONMemoryDeleter
