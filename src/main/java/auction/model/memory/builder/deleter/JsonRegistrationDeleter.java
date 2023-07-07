@@ -18,7 +18,8 @@ public class JsonRegistrationDeleter extends AbstractJSONMemoryDeleter
     public void delete(int id) {
         for( int i=0; i< rootObjectsList.size(); i++ ){
             JSONObject jsonRegistration = (JSONObject) rootObjectsList.get(i);
-            if( ((Long) jsonRegistration.get("id")).intValue() == id ) rootObjectsList.remove(i);
+            int registrationId = ((Long) jsonRegistration.get("id")).intValue();
+            if( registrationId != id ) newObjectList.add(jsonRegistration);
         }
     }//delete
 }//MemoryDeleter

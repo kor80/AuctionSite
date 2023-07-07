@@ -369,8 +369,8 @@ public class ArticleService extends ArticleServiceGrpc.ArticleServiceImplBase
         DeleteArticleResponse response = DeleteArticleResponse.newBuilder().setUpshot(upshot).build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
-
-        logger.info("Article "+id+" deleted.");
+        if(upshot)
+            logger.info("Article "+id+" deleted.");
     }//createArticle
 
     @Override

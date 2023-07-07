@@ -153,9 +153,8 @@ public class RegistrationManager
         for(Map.Entry<String,HashSet<Integer>> registrations : registeredAuctions.entrySet() )
             found = registrations.getValue().remove(id);
 
-        if( !found)
-            for(Map.Entry<String,HashSet<Integer>> registrations : newRegisteredAuctions.entrySet() )
-                found = registrations.getValue().remove(id);
+        for(Map.Entry<String,HashSet<Integer>> registrations : newRegisteredAuctions.entrySet() )
+            found = registrations.getValue().remove(id);
 
         return found;
     }//removeRegistration

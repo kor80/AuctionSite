@@ -20,6 +20,7 @@ import java.io.IOException;
 public abstract class AbstractJSONMemoryDeleter implements MemoryDeleter
 {
     protected JSONArray rootObjectsList;
+    protected JSONArray newObjectList;
 
     private final String path;
 
@@ -34,6 +35,7 @@ public abstract class AbstractJSONMemoryDeleter implements MemoryDeleter
             JSONParser parser = new JSONParser();
             rootObjectsList = (JSONArray) parser.parse(fr);
             fr.close();
+            newObjectList = new JSONArray();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -45,7 +47,7 @@ public abstract class AbstractJSONMemoryDeleter implements MemoryDeleter
             File f = new File(path);
             f.delete();
             FileWriter fw = new FileWriter(path);
-            fw.write(rootObjectsList.toJSONString());
+            fw.write(newObjectList.toJSONString());
             fw.flush();
             fw.close();
         } catch (IOException e) {

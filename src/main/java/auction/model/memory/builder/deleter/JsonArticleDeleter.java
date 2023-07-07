@@ -19,7 +19,7 @@ public class JsonArticleDeleter extends AbstractJSONMemoryDeleter
         for( int i=0; i< rootObjectsList.size(); i++ ){
             JSONObject jsonArticle = (JSONObject) rootObjectsList.get(i);
             JSONObject info = (JSONObject)jsonArticle.get("info");
-            if( ((Long) info.get("id")).intValue() == id ) rootObjectsList.remove(i);
+            if( ((Long) info.get("id")).intValue() != id ) newObjectList.add(jsonArticle);
         }
     }//delete
 }//JsonArticleDeleter

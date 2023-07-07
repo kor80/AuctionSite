@@ -40,6 +40,7 @@ public class ActiveAuctionsMenu extends AbstractMenu
         for( AuctionInfo auction : auctions ){
             ArticleInfo article = getArticle(auction.getArticleId());
             auctionsPanel.add(createAuctionView(auction,article));
+            auctionsPanel.add(Box.createVerticalStrut(30));
             auctionsPanel.add(new JSeparator());
         }
 
@@ -59,31 +60,31 @@ public class ActiveAuctionsMenu extends AbstractMenu
 
     private JPanel createAuctionView(AuctionInfo auctionInfo,ArticleInfo article){
         JPanel view = new JPanel();
-        view.setLayout(new BoxLayout(view,BoxLayout.X_AXIS));
-        int horizStrut = 20;
+        //view.setLayout(new BoxLayout(view,BoxLayout.X_AXIS));
+        //int horizStrut = 20;
 
         JLabel nameLabel = new JLabel("Nome: " + auctionInfo.getArticleName());
         view.add(nameLabel);
-        view.add(Box.createHorizontalStrut(horizStrut));
+        //view.add(Box.createHorizontalStrut(horizStrut));
 
         JLabel offerTextLabel = new JLabel("Prezzo attuale: ");
         view.add(offerTextLabel);
         JLabel finalOfferLabel = new JLabel(String.valueOf(auctionInfo.getCurrentOffer()));
         view.add(finalOfferLabel);
-        view.add(Box.createHorizontalStrut(horizStrut));
+        //view.add(Box.createHorizontalStrut(horizStrut));
 
         JLabel stateTextLabel = new JLabel("Stato: ");
         view.add(stateTextLabel);
         String state = auctionInfo.getIsOpened() ? "Aperta" : "Chiusa";
         JLabel statusLabel = new JLabel(state);
         view.add(statusLabel);
-        view.add(Box.createHorizontalStrut(horizStrut));
+        //view.add(Box.createHorizontalStrut(horizStrut));
 
         JLabel winnerTextLabel = new JLabel("Vincitore corrente: ");
         view.add(winnerTextLabel);
         JLabel winnerLabel = new JLabel(auctionInfo.getCurrentWinner());
         view.add(winnerLabel);
-        view.add(Box.createHorizontalStrut(horizStrut));
+        //view.add(Box.createHorizontalStrut(horizStrut));
 
         handler.handle(new GraphicChangeCommand(client,finalOfferLabel,statusLabel,winnerLabel));
 
@@ -95,7 +96,7 @@ public class ActiveAuctionsMenu extends AbstractMenu
         long remainingTime = DateChecker.getRemainingTimeInSeconds(article);
         handler.handle(new StartTimerCommand(client,handler,frame,remainingTimeLabel,remainingTime));
         view.add(remainingTimeLabel);
-        view.add(Box.createHorizontalStrut(horizStrut));
+        //view.add(Box.createHorizontalStrut(horizStrut));
 
 
         double buyNowPrice = article.getBuyNowPrice();
@@ -106,12 +107,12 @@ public class ActiveAuctionsMenu extends AbstractMenu
             JButton buyNowButton = new JButton("compra ora");
             buyNowButton.addActionListener(new BuyNowListener(id));
             view.add(buyNowButton);
-            view.add(Box.createHorizontalStrut(horizStrut));
+            //view.add(Box.createHorizontalStrut(horizStrut));
         }
 
         JLabel offerLabel = new JLabel("Offerta: ");
         view.add(offerLabel);
-        JTextField offerField = new JTextField(horizStrut);
+        JTextField offerField = new JTextField(10);
         view.add(offerField);
         JButton makeOfferButton = new JButton("offri");
         makeOfferButton.addActionListener(new MakeOfferListener(id,offerField));

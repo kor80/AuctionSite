@@ -346,6 +346,7 @@ public class MemoryManager
         AuctionsManager.getInstance().removeAuction(id);
         memoryImpl.deleteRegistration(id);
         RegistrationManager.getInstance().removeRegistration(id);
+
         return true;
     }//removeArticle
 }

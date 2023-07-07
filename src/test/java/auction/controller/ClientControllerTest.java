@@ -26,6 +26,8 @@ public class ClientControllerTest {
 
     private ClientController client;
 
+    private AdminController admin;
+
     @BeforeAll
     public void setUp() throws Exception {
         String serverName = InProcessServerBuilder.generateName();
@@ -36,6 +38,8 @@ public class ClientControllerTest {
 
         client = new ClientController();
         client.setUsername("Username");
+
+        admin = new AdminController();
     }//setUp
 
     @AfterAll
@@ -233,4 +237,23 @@ public class ClientControllerTest {
         assertEquals(offer,newAmount);
         assertEquals("Username",newWinner);
     }//makeOfferToOpenedAuction
+
+    @Test
+    public void deleteArticleWithInvalidId(){
+        boolean upshot = admin.deleteArticle(9);
+        assertFalse(upshot);
+    }//deleteArticleWithValidId
+
+    @Test
+    public void deleteStartedAuction(){
+        boolean upshot = admin.deleteArticle(0);
+        assertFalse(upshot);
+    }//deleteStartedAuction
+
+    @Test
+    public void deleteArticleWithValidIdNotStarted(){
+        boolean upshot = admin.deleteArticle(0);
+        assertTrue(upshot);
+        assertEquals(admin.getArticles().size(),0);
+    }//deleteArticleWithValidIdNotStarted
 }//ClientControllerTest
